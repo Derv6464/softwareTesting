@@ -29,25 +29,25 @@ class User:
         self.id = id
         self.size = size
 
-def selectAllRooms():
-    print("Please select a room to book:\t(number input)")
-    for i in range(1,len(allRooms)):
-        print("["+str(i)+"] "+allRooms[i] + " room")
-    return int(input())
-
-def selctAllDates():
-    print("Please select a date to book:\t(number input)")
-    for i in range(1,len(allDates)):
-        print("["+str(i)+"] "+allDates[i])
-    return int(input())
-
-def selectAvabileTimes(date,room,bookings):
-    print("Please select a time to book:\t(number input)")
-    avaTimes = getAvabileTimes(date,room,bookings)
-    for i in range(1,len(avaTimes)):
-        print("["+str(i)+"] "+avaTimes[i])
-    return avaTimes,int(input())
-
+#def selectAllRooms():
+#    print("Please select a room to book:\t(number input)")
+#    for i in range(1,len(allRooms)):
+#        print("["+str(i)+"] "+allRooms[i] + " room")
+#    return int(input())
+#
+#def selctAllDates():
+#    print("Please select a date to book:\t(number input)")
+#    for i in range(1,len(allDates)):
+#        print("["+str(i)+"] "+allDates[i])
+#    return int(input())
+#
+#def selectAvabileTimes(date,room,bookings):
+#    print("Please select a time to book:\t(number input)")
+#    avaTimes = getAvabileTimes(date,room,bookings)
+#    for i in range(1,len(avaTimes)):
+#        print("["+str(i)+"] "+avaTimes[i])
+#    return avaTimes,int(input())
+#
 def getAvabileTimes(date,room,bookings):
     avaTimes = []
     for i in allTimes:
