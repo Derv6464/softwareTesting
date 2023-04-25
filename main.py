@@ -9,6 +9,7 @@ def getBookings():
             bookings.append(row)
     return bookings
 
+bookings = getBookings()
 allRooms = ["meeting", "moon", "food", "young kids", "old kids", "adults", "seniors", "all ages"]
 allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
 #can only book a date make 1 week in adavance (i week of dates avaible to book), date format: mm/dd/yy
@@ -31,27 +32,28 @@ def selectAllRooms():
     print("Please select a room to book:\t(number input)")
     for i in range(1,len(allRooms)):
         print("["+str(i)+"] "+allRooms[i] + " room")
-    
     return int(input())
 
 def selctAllDates():
     print("Please select a date to book:\t(number input)")
     for i in range(1,len(allDates)):
         print("["+str(i)+"] "+allDates[i])
-    
     return int(input())
 
 def selectAvabileTimes(date,room,bookings):
     print("Please select a time to book:\t(number input)")
+    avaTimes = getAvabileTimes(date,room,bookings)
+    for i in range(1,len(avaTimes)):
+        print("["+str(i)+"] "+avaTimes[i])
+    return avaTimes,int(input())
+
+def getAvabileTimes(date,room,bookings):
     avaTimes = []
     for i in allTimes:
         for j in bookings:
             if j[2] != date and j[1] != room and j[3] != i:
                 avaTimes.append(i)
-    
-    for i in range(1,len(avaTimes)):
-        print("["+str(i)+"] "+avaTimes[i])
-    return avaTimes,int(input())
+    return avaTimes
 
 
 def makeSelection():
@@ -113,6 +115,4 @@ def checkTimeInAdvance(now,bookingTime):
     if now + 3 < bookingTime:
         print("Must book 3 hours in advance")
         return False
-    
-
     
