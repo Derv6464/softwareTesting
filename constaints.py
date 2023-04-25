@@ -1,6 +1,7 @@
 import datetime
 import csv
 
+
 def getBookings():
     bookings = []
     with open("bookings.csv", 'r') as file:
@@ -63,10 +64,10 @@ def makeSelection():
     time = timeSelection[0][timeSelection[1]]
     return room, time, date
 
-def addBooking(booking):
+def addBooking(booking, id):
     with open("bookings.csv", 'a') as file:
         writer = csv.writer(file)
-        writer.writerow(booking)
+        writer.writerow(booking,id)
     getBookings()
 
 def book(room, time,id):
@@ -78,7 +79,7 @@ def book(room, time,id):
     #    return False
     
     #if checks passes
-    addBooking(makeSelection(allRooms,allTimes,allDates))
+    addBooking(makeSelection(allRooms,allTimes,allDates),id)
     
 #def checkTime(time):
 #    bookingTime = datetime(hour=time, minute=0, second=0, microsecond=0)
