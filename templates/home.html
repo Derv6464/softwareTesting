@@ -3,21 +3,50 @@
 
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-        <title>About</title>
+        <title>Bookings</title>
     </head>
 
     <body>
-        <br><br>
-        <div style="
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;">
-            <p>This is a website that accesses and retrieves data from our asset management system database.</p>
-            <p>The database was built using Oracle SQL.</p>
-            <p>From this website all the data can be viewed and certain DML statements can be executed</p>
-            <p>Available assets can be requested</p>
-        </div>
+        <form >
+            <div >
+                <div>
+                    <label for="room">Select Room</label>
+                    <select name="room" placeholder="Select Room Below">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="dateS">Select Your Dates</label>
+                    <input name="dateS" type="date" min="2023-04-25" max="2023-05-25">
+                </div>
+                <div>
+                    <label for="age">Select Age Range</label>
+                    <select name="age" placeholder="Select Age Below">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="numOfPpl">Enter the number of anttendees</label>
+                    <input name="numOfPpl" type="number" min="1">
+                </div>
+                <div>
+                    <label for="length">Select meeting length</label>
+                    <select name="length" placeholder="Select Time Length Below">
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                    </select>
+                </div>
+                <button type="submit">
+                    Submit 
+                </button>
+            </div>
+      </form>
     </body>
 
 </html>
+
