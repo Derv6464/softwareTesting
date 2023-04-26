@@ -1,5 +1,8 @@
 import datetime
 import csv
+import requests
+url = "https://holidays.abstractapi.com/v1/"
+api_key = "f9eb73a590b245259d9ecf7b8717445b"
 
 
 def getBookings():
@@ -24,10 +27,15 @@ class Room:
         self.time = time
 
 class User:
-    def __init__(self, booking, id, size):
+    def __init__(self, booking, id, size, date):
         self.booking = booking
         self.id = id
         self.size = size
+        self.date = date
+
+def getDay(date):
+    return date
+
 
 #def selectAllRooms():
 #    print("Please select a room to book:\t(number input)")
@@ -116,4 +124,15 @@ def checkTimeInAdvance(now,bookingTime):
     if now + 3 < bookingTime:
         print("Must book 3 hours in advance")
         return False
+    return True 
     
+def checkHoliday(date):
+    country = "IE"
+    day = date.day
+    month = date.month
+    year = date.year
+    response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
+    if response: 
+        return True
+    else:
+        return False
