@@ -16,7 +16,7 @@ def onSubmit():
     numOfPeople = request.form['numOfPeople']
     length = request.form['length']
     data.append([room, date])
-    return render_template('home.html', data=data)
+    return render_template('selectTime.html', data=data)
     
 
 
