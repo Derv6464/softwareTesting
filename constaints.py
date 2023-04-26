@@ -72,10 +72,11 @@ def makeSelection():
     time = timeSelection[0][timeSelection[1]]
     return room, time, date
 
-def addBooking(booking, id):
+def addBooking(booking):
+    #include id if we do id, and make booking refrence
     with open("bookings.csv", 'a') as file:
         writer = csv.writer(file)
-        writer.writerow(booking,id)
+        writer.writerow(booking)
     getBookings()
 
 def book(room, time,id):
