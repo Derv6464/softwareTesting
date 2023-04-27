@@ -7,12 +7,12 @@
     </head>
     <body>
         <main class="container">
-        <form action="/submit_form2">
+        <form action="/submit_form2" method="POST">
             <div >
                 <div>
                     <label for="time">Select Available Time Slot</label>
                     <select name="time" placeholder="Select Time Slot Below">
-                        {% for time in times %}
+                        {% for time in data %}
                             <option value="{{ time }}">{{ time }}</option>
                         {% endfor %}
                     </select>

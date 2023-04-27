@@ -33,10 +33,8 @@ def onSubmit():
         booking = tempBooking
         tempBooking = []
         times = c.getAvabileTimes(date, room, c.getBookings())
-        print(times)
         return render_template('selectTime.html', data=times)
     else:
-        print(formChecks[1])
         flash(formChecks[1])
         return render_template('home.html', data=[c.allRooms, c.allDates, c.allTimes], datetime=datetime)
 
@@ -44,11 +42,11 @@ def onSubmit():
 @app.route('/submit_form2', methods=['POST', 'GET'])
 def onTimeSubmit():
     time = request.form['time']
+    print(time)
     #do booking checks
     booking.append(time)
     print(booking)
-    c.addBooking(booking)
-    booking = []
+    #c.addBooking(booking)
     return render_template('confirm.html', data=booking)
 
 if __name__ == '__main__':
