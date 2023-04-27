@@ -22,11 +22,14 @@ def onSubmit():
     age = request.form['age']
     #do booking checks 
     
-    booking.append(room)
-    booking.append(date)
-    booking.append(numOfPeople)
-    booking.append(length)
-    booking.append(age)
+    tempBooking = [room, date, numOfPeople, length, age]
+    formChecks = c.formChecks(tempBooking)
+    if formChecks[0]:
+        booking = tempBooking
+        tempBooking = []
+    else:
+        pass
+        #messege with error formChecks[1]
 
     print(booking)
     data.append([room, date])
