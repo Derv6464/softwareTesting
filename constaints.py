@@ -56,7 +56,6 @@ def form1Checks(booking):
 def form2Checks(booking):
     if not userBooked(booking, bookings):
         return [False, "You already have a booking at this time"]
-    
 
 def getRoom(roomName):
     for room in allRooms:
@@ -65,22 +64,15 @@ def getRoom(roomName):
     return False
 
 def ageRange(room, age):
-    for item in allRooms:
-        if item.name == room:
-            if age < item.maxAge:
-                return True
-            else:
-                return False
-            
-#def ageRange(room, age):
-#    minAgeIn, maxAgeIn = age.split("-")
-#    minAgeIn = int(minAgeIn)
-#    maxAgeIn = int(maxAgeIn)
-#    targetRoom = getRoom(room)
-#    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
-#        return True
-#    else:
-#        return False
+    minAgeIn, maxAgeIn = age.split("-")
+    minAgeIn = int(minAgeIn)
+    maxAgeIn = int(maxAgeIn)
+    targetRoom = getRoom(room)
+    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
+        return True
+    else:
+        return False
+        
 
 def getAvabileTimes(date,room,bookings):
     avaTimes = []
