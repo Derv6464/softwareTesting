@@ -20,11 +20,9 @@ allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00
 allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
 
 class Room:
-    def __init__(self,name, booked, max, time):
-        self.booked = booked
+    def __init__(self,name, max):
         self.name = name
         self.max = max
-        self.time = time
 
 class User:
     def __init__(self, booking, id, size, date):
@@ -79,8 +77,8 @@ def addBooking(booking, id):
     getBookings()
 
 def book(room, time,id):
-    bookingTime = datetime(hour=time, minute=0, second=0, microsecond=0)
-    now = datetime.now()
+    bookingTime = datetime.datetime(hour=time, minute=0, second=0, microsecond=0)
+    now = datetime.datetime.now()
     #if not checkTime(time):
     #    return False
     #if not checkValidId(id):
@@ -97,8 +95,7 @@ def book(room, time,id):
 #        return False
 
 def checkValidId(id):
-    if User.id != valid_id:
-        return False
+    return True
     
 #def checkDoubleBook():
 #    if Room.booked == True:
@@ -133,6 +130,6 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
     if response: 
-        return True
-    else:
         return False
+    else:
+        return True
