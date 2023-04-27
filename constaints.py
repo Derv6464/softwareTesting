@@ -38,18 +38,18 @@ class User:
         self.date = date
 
 def form1Checks(booking):
-    errorMSG = "You can't:"
+    errorMSG = "You can't: "
     passes = True
     if not checkWeekend(booking[1]):
-        errorMSG += "book on weekends,"
+        errorMSG += "book on weekends, "
         passes = False
     if not checkHoliday(booking[1]):
-        errorMSG += "book on holidays,"
+        errorMSG += "book on holidays, "
         passes = False
     if not checkNulls(booking):
-        errorMSG += "leave any fields blank,"
+        errorMSG += "leave any fields blank, "
         passes = False
-    return [passes,errorMSG]
+    return [passes,errorMSG[:-2]]
 
 def form2Checks(booking):
     if not userBooked(booking, bookings):
@@ -128,9 +128,6 @@ def checkHoliday(date):
     month = date.month
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
-    print(response)
-    decoded_response = response.text
-    print(type(decoded_response))
     if response.text != "[]": 
         return False
     else:

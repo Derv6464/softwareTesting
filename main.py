@@ -33,6 +33,7 @@ def onSubmit():
         booking = tempBooking
         tempBooking = []
         times = c.getAvabileTimes(date, room, c.getBookings())
+        print(times)
         return render_template('selectTime.html', data=times)
     else:
         print(formChecks[1])
