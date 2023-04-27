@@ -13,7 +13,7 @@
                     <label for="room">Select Room</label>
                     <select name="room" placeholder="Select Room Below">
                         {% for room in data[0] %}
-                            <option value="{{ room }}">{{ room }}</option>
+                            <option value="{{ room.name }}">{{ room.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -32,8 +32,8 @@
                     </select>
                 </div>
                 <div>
-                    <label for="numOfPpl">Enter the number of anttendees</label>
-                    <input name="numOfPpl" type="number" min="1">
+                    <label for="numOfPpl">Enter the number of attendees</label>
+                    <input name="numOfPpl" type="number" min="1" max="">
                 </div>
                 <div>
                     <label for="length">Select meeting length</label>

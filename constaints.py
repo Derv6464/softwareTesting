@@ -14,17 +14,18 @@ def getBookings():
     return bookings
 
 bookings = getBookings()
-allRooms = ["Meeting", "Moon", "Food", "Young Kids", "Old Kids", "Adults", "Seniors", "All Ages"]
+#allRooms = ["Meeting", "Moon", "Food", "Young Kids", "Old Kids", "Adults", "Seniors", "All Ages"]
+maxOccupancy =[]
 allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
 #can only book a date make 1 week in adavance (i week of dates avaible to book), date format: mm/dd/yy
 allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
 
 class Room:
-    def __init__(self,name, booked, max, time):
-        self.booked = booked
+    def __init__(self,name, maxO):
         self.name = name
-        self.max = max
-        self.time = time
+        self.maxO = maxO
+
+allRooms = [Room("Meeting", 300), Room("Moon", 20), Room("Food", 10), Room("Young Kids", 30), Room("Old Kids", 100), Room("Adults", 20), Room("Seniors", 65), Room("All Ages", 215)]
 
 class User:
     def __init__(self, booking, id, size, date):
