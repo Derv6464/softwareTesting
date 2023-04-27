@@ -32,8 +32,10 @@ def onSubmit():
         #messege with error formChecks[1]
 
     print(booking)
+
+    times = c.getAvabileTimes(date, room, c.getBookings())
     data.append([room, date])
-    return render_template('selectTime.html', data=[c.allRooms, c.allDates, c.allTimes])
+    return render_template('selectTime.html', data=times)
     
 @app.route('/submit_form2', methods=['POST', 'GET'])
 def onTimeSubmit():
@@ -43,6 +45,6 @@ def onTimeSubmit():
     print(booking)
     c.addBooking(booking)
     booking = []
-    return render_template('confirm.html', date=booking)
+    return render_template('confirm.html', data=booking)
 if __name__ == '__main__':
     app.run()

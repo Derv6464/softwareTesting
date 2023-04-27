@@ -6,14 +6,14 @@
         <title>Bookings</title>
     </head>
     <body>
-        <form>
+        <form action="/submit_form2">
             <div >
                 <div>
                     <label for="time">Select Available Time Slot</label>
-                    <select name="room" placeholder="Select Time Slot Below">
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
+                    <select name="time" placeholder="Select Time Slot Below">
+                        {% for time in times %}
+                            <option value="{{ time }}">{{ time }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <button type="submit">
