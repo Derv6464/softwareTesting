@@ -2,6 +2,8 @@ import datetime
 import constaints as c
 from flask import Flask, request, render_template
 
+#csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
+
 app = Flask(__name__)
 data = []
 booking = []
