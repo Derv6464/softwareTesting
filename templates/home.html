@@ -18,14 +18,14 @@
                     </article>
                 </dialog>
             {% endfor %}       
-        
+        <h1>Room Booking System</h1>
         <form action="/submit_form1" method="POST">
             <div>
                 <div class="grid">
                     <div>
                         <label for="room">Select Room</label>
                         <select name="room" placeholder="Select Room Below">
-                            {% for room in data[0] %}
+                            {% for room in data %}
                                 <option value="{{ room.name }}">{{ room.name }} room</option>
                             {% endfor %}
                         </select>

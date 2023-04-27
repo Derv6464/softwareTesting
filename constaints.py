@@ -24,10 +24,7 @@ class Room:
         self.maxAge = maxAge
         self.minAge = minAge
 
-#allRooms = ["Meeting", "Moon", "Food", "Young Kids", "Old Kids", "Adults", "Seniors", "All Ages"]
-maxOccupancy =[]
 allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
-#can only book a date make 1 week in adavance (i week of dates avaible to book), date format: mm/dd/yy
 allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
 allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 20, 46, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 64, 18), Room("Seniors", 65, 100, 65), Room("All Ages", 160, 100, 0)]
 
@@ -50,7 +47,11 @@ def form1Checks(booking):
     if not checkNulls(booking):
         errorMSG += "leave any fields blank, "
         passes = False
+    if not checkMax(booking[2]):
+        errorMSG += "book more than the max amount of people, "
+        passes = False
     return [passes,errorMSG[:-2]]
+
 
 def form2Checks(booking):
     if not userBooked(booking, bookings):
@@ -70,6 +71,16 @@ def ageRange(room, age):
                 return True
             else:
                 return False
+            
+#def ageRange(room, age):
+#    minAgeIn, maxAgeIn = age.split("-")
+#    minAgeIn = int(minAgeIn)
+#    maxAgeIn = int(maxAgeIn)
+#    targetRoom = getRoom(room)
+#    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
+#        return True
+#    else:
+#        return False
 
 def getAvabileTimes(date,room,bookings):
     avaTimes = []
@@ -99,10 +110,11 @@ def userBooked(booking, bookings):
             return False
     return True
 
-def checkMax():
-    if User.size < Room.max:
-        print("This room has insufficient space")
+def checkMax(people):
+    if people < Room.max:
         return False
+    else:
+        return True
     
 def checkWeekend(date):
     if date.weekday() > 4:
