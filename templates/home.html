@@ -7,40 +7,56 @@
     </head>
 
     <body>
+        <main class = "container">
+            {% for message in get_flashed_messages() %}
+                <dialog open>
+                    <article>
+                        {{ message }}
+                    <footer>
+                        <a href="/" role="button">Ok</a>
+                    </footer>
+                    </article>
+                </dialog>
+            {% endfor %}       
+        
         <form action="/submit_form1" method="POST">
-            <div >
-                <div>
-                    <label for="room">Select Room</label>
-                    <select name="room" placeholder="Select Room Below">
-                        {% for room in data[0] %}
-                            <option value="{{ room.name }}">{{ room.name }}</option>
-                        {% endfor %}
-                    </select>
+            <div>
+                <div class="grid">
+                    <div>
+                        <label for="room">Select Room</label>
+                        <select name="room" placeholder="Select Room Below">
+                            {% for room in data[0] %}
+                                <option value="{{ room.name }}">{{ room.name }} room</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="dateS">Select Your Dates</label>
+                        <input name="dateS" type="date" min="{{ datetime.datetime.today().strftime('%Y-%m-%d') }}" max="{{ (datetime.datetime.today() + datetime.timedelta(days=30)).strftime('%Y-%m-%d') }}">
+                    </div>
                 </div>
-                <div>
-                    <label for="dateS">Select Your Dates</label>
-                    <input name="dateS" type="date" min="{{ datetime.datetime.today().strftime('%Y-%m-%d') }}" max="{{ (datetime.datetime.today() + datetime.timedelta(days=30)).strftime('%Y-%m-%d') }}">
-                </div>
-                <div>
-                    <label for="age">Select Age Range</label>
-                    <select name="age" placeholder="Select Age Below">
-                        <option>0-12</option>
-                        <option>12-18</option>
-                        <option>18-65</option>
-                        <option>65+</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="numOfPpl">Enter the number of attendees</label>
-                    <input name="numOfPpl" type="number" min="1" max="">
-                </div>
-                <div>
-                    <label for="length">Select meeting length</label>
-                    <select name="length" placeholder="Select Time Length Below">
-                        <option>1 hour</option>
-                        <option>2 hours</option>
-                        <option>3 hours</option>
-                    </select>
+                <div class="grid">
+                    <div>
+                        <label for="age">Select Age Range</label>
+                        <select name="age" placeholder="Select Age Below">
+                            <option>0-12</option>
+                            <option>12-18</option>
+                            <option>18-65</option>
+                            <option>65+</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="numOfPpl">Enter the number of attendees</label>
+                        <input name="numOfPpl" type="number" min="1" max="">
+                    </div>
+                    <div>
+                        <label for="length">Select meeting length</label>
+                        <select name="length" placeholder="Select Time Length Below">
+                            <option>1 hour</option>
+                            <option>2 hours</option>
+                            <option>3 hours</option>
+                        </select>
+                    </div>
                 </div>
                 <button type="submit" >
                     Submit 
@@ -48,6 +64,7 @@
             </div>
       </form>
       Note: You cannot book during the weekends or major holidays.
+    </main>
     </body>
 
 </html>
