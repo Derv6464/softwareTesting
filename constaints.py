@@ -14,7 +14,7 @@ def getBookings():
     return bookings
 
 bookings = getBookings()
-allRooms = ["meeting", "moon", "food", "young kids", "old kids", "adults", "seniors", "all ages"]
+allRooms = ["Meeting", "Moon", "Food", "Young Kids", "Old Kids", "Adults", "Seniors", "All Ages"]
 allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
 #can only book a date make 1 week in adavance (i week of dates avaible to book), date format: mm/dd/yy
 allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
