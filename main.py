@@ -25,7 +25,7 @@ def onSubmit():
     #do booking checks 
     
     tempBooking = [room, date, numOfPeople, length, age]
-    formChecks = c.formChecks1(tempBooking)
+    formChecks = c.form1Checks(tempBooking)
     if formChecks[0]:
         booking = tempBooking
         tempBooking = []
