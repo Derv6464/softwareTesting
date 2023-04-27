@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+        <title>Bookings</title>
+    </head>
+    <body>
+        <main class="container">
+        <h1>You're booking was succesful</h1>
+        <article>
+            <p>Room: {{ data[0].name }} room</p>
+            <p>Date: {{ data[1].strftime('%d/%m/%Y') }}</p>
+            <p>Time: {{ data[5] }}</p>
+            <p>Age: {{ data[4] }}</p>
+            <p>Number of People: {{ data[2] }}</p>
+            <p>Length: {{ data[3] }}</p>
+        </article>
+    </main>
+    </body>
+</html>

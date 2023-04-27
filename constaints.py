@@ -15,6 +15,7 @@ def getBookings():
     return bookings
 
 bookings = getBookings()
+booking = []
 
 class Room:
     def __init__(self,name, max, maxAge,minAge):
