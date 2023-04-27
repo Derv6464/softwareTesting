@@ -7,6 +7,9 @@
     </head>
 
     <body>
+        {% for message in get_flashed_messages() %}
+            {{ message }}
+        {% endfor %}
         <form action="/submit_form1" method="POST">
             <div >
                 <div>

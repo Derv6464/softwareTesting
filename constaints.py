@@ -46,6 +46,9 @@ def form1Checks(booking):
     if not checkHoliday(booking[1]):
         errorMSG += "book on holidays,"
         passes = False
+    if not checkNulls(booking):
+        errorMSG += "leave any fields blank,"
+        passes = False
     return [passes,errorMSG]
 
 def form2Checks(booking):
@@ -104,12 +107,20 @@ def checkWeekend(date):
     if date.weekday() > 4:
         print("Cannot book on weekend")
         return False
+    else:
+        return True
     
 def checkTimeInAdvance(now,bookingTime):
     if now + 3 < bookingTime:
         print("Must book 3 hours in advance")
         return False
     return True 
+
+def checkNulls(booking):
+    for i in booking:
+        if i == "":
+            return False
+    return True
     
 def checkHoliday(date):
     country = "IE"
@@ -117,7 +128,10 @@ def checkHoliday(date):
     month = date.month
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
-    if response: 
+    print(response)
+    decoded_response = response.text
+    print(type(decoded_response))
+    if response.text != "[]": 
         return False
     else:
         return True

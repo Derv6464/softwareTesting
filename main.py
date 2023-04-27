@@ -1,10 +1,11 @@
 import datetime
 import constaints as c
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash
 
 #csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'you-will-never-guess'
 data = []
 booking = []
 
@@ -23,21 +24,21 @@ def onSubmit():
     length = request.form['length']
     age = request.form['age']
     #do booking checks 
-    
+
+    date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+    room = c.getRoom(room)
     tempBooking = [room, date, numOfPeople, length, age]
     formChecks = c.form1Checks(tempBooking)
     if formChecks[0]:
         booking = tempBooking
         tempBooking = []
+        times = c.getAvabileTimes(date, room, c.getBookings())
+        return render_template('selectTime.html', data=times)
     else:
-        pass
-        #messege with error formChecks[1]
+        print(formChecks[1])
+        flash(formChecks[1])
+        return render_template('home.html', data=[c.allRooms, c.allDates, c.allTimes], datetime=datetime)
 
-    print(booking)
-
-    times = c.getAvabileTimes(date, room, c.getBookings())
-    data.append([room, date])
-    return render_template('selectTime.html', data=times)
     
 @app.route('/submit_form2', methods=['POST', 'GET'])
 def onTimeSubmit():
