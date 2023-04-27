@@ -4,6 +4,7 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 data = []
+booking = []
 
 @app.route('/')
 def home():
@@ -15,10 +16,30 @@ def onSubmit():
     date = request.form['dateS']
     age = request.form['age']
     numOfPeople = request.form['numOfPpl']
+    date = request.form['dateS']
+    numOfPeople = request.form['numOfPpl']
     length = request.form['length']
+    age = request.form['age']
+    #do booking checks 
+    
+    booking.append(room)
+    booking.append(date)
+    booking.append(numOfPeople)
+    booking.append(length)
+    booking.append(age)
+
+    print(booking)
     data.append([room, date])
     return render_template('selectTime.html', data=[c.allRooms, c.allDates, c.allTimes])
-
-
+    
+@app.route('/submit_form2', methods=['POST', 'GET'])
+def onTimeSubmit():
+    time = request.form['time']
+    #do booking checks
+    booking.append(time)
+    print(booking)
+    c.addBooking(booking)
+    booking = []
+    return render_template('confirm.html', date=booking)
 if __name__ == '__main__':
     app.run()

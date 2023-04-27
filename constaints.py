@@ -21,11 +21,17 @@ allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00
 allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
 
 class Room:
+<<<<<<< HEAD
     def __init__(self,name, maxO):
         self.name = name
         self.maxO = maxO
 
 allRooms = [Room("Meeting", 300), Room("Moon", 20), Room("Food", 10), Room("Young Kids", 30), Room("Old Kids", 100), Room("Adults", 20), Room("Seniors", 65), Room("All Ages", 215)]
+=======
+    def __init__(self,name, max):
+        self.name = name
+        self.max = max
+>>>>>>> main
 
 class User:
     def __init__(self, booking, id, size, date):
@@ -73,15 +79,16 @@ def makeSelection():
     time = timeSelection[0][timeSelection[1]]
     return room, time, date
 
-def addBooking(booking, id):
+def addBooking(booking):
+    #include id if we do id, and make booking refrence
     with open("bookings.csv", 'a') as file:
         writer = csv.writer(file)
-        writer.writerow(booking,id)
+        writer.writerow(booking)
     getBookings()
 
 def book(room, time,id):
-    bookingTime = datetime(hour=time, minute=0, second=0, microsecond=0)
-    now = datetime.now()
+    bookingTime = datetime.datetime(hour=time, minute=0, second=0, microsecond=0)
+    now = datetime.datetime.now()
     #if not checkTime(time):
     #    return False
     #if not checkValidId(id):
@@ -98,8 +105,7 @@ def book(room, time,id):
 #        return False
 
 def checkValidId(id):
-    if User.id != valid_id:
-        return False
+    return True
     
 #def checkDoubleBook():
 #    if Room.booked == True:
@@ -134,6 +140,6 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
     if response: 
-        return True
-    else:
         return False
+    else:
+        return True
