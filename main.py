@@ -12,7 +12,7 @@ booking = []
 @app.route('/')
 def home():
     c.booking = []
-    return render_template('home.html', data=[c.allRooms, c.allDates, c.allTimes], datetime=datetime)
+    return render_template('home.html', data=c.allRooms, datetime=datetime)
 
 @app.route('/submit_form1', methods=['POST', 'GET'])
 def onSubmit():
@@ -38,7 +38,7 @@ def onSubmit():
         return render_template('selectTime.html', data=times)
     else:
         flash(formChecks[1])
-        return render_template('home.html', data=[c.allRooms, c.allDates, c.allTimes], datetime=datetime)
+        return render_template('home.html', data=c.allRooms, datetime=datetime)
 
     
 @app.route('/submit_form2', methods=['POST', 'GET'])
