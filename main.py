@@ -2,6 +2,8 @@ import datetime
 import constaints as c
 from flask import Flask, request, render_template
 
+#csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
+
 app = Flask(__name__)
 data = []
 booking = []
@@ -22,11 +24,14 @@ def onSubmit():
     age = request.form['age']
     #do booking checks 
     
-    booking.append(room)
-    booking.append(date)
-    booking.append(numOfPeople)
-    booking.append(length)
-    booking.append(age)
+    tempBooking = [room, date, numOfPeople, length, age]
+    formChecks = c.form1Checks(tempBooking)
+    if formChecks[0]:
+        booking = tempBooking
+        tempBooking = []
+    else:
+        pass
+        #messege with error formChecks[1]
 
     print(booking)
 
@@ -43,5 +48,6 @@ def onTimeSubmit():
     c.addBooking(booking)
     booking = []
     return render_template('confirm.html', data=booking)
+
 if __name__ == '__main__':
     app.run()
