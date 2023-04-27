@@ -18,7 +18,14 @@ def onSubmit():
     length = request.form['length']
     age = request.form['age']
     #do booking checks 
-    booking.append(room,date,numOfPeople,length,age)
+    
+    booking.append(room)
+    booking.append(date)
+    booking.append(numOfPeople)
+    booking.append(length)
+    booking.append(age)
+
+    print(booking)
     data.append([room, date])
     return render_template('selectTime.html', data=data)
         
@@ -27,6 +34,7 @@ def onTimeSubmit():
     time = request.form['time']
     #do booking checks
     booking.append(time)
+    print(booking)
     c.addBooking(booking)
     booking = []
     return render_template('confirm.html', date=booking)
