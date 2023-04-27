@@ -46,5 +46,6 @@ def onTimeSubmit():
     c.addBooking(booking)
     booking = []
     return render_template('confirm.html', data=booking)
+
 if __name__ == '__main__':
     app.run()

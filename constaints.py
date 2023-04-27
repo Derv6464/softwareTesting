@@ -34,11 +34,16 @@ class User:
         self.size = size
         self.date = date
 
-def getDay(date):
-    return date
+def formChecks(booking):
+    pass
+
+def getRoom(roomName):
+    for room in allRooms:
+        if room.name == roomName:
+            return room
+    return False
 
 def ageRange(room, age):
-    
     for item in allRooms:
         if item.name == room:
             if age < item.maxAge:
@@ -47,25 +52,7 @@ def ageRange(room, age):
                 return False
 
 
-#def selectAllRooms():
-#    print("Please select a room to book:\t(number input)")
-#    for i in range(1,len(allRooms)):
-#        print("["+str(i)+"] "+allRooms[i] + " room")
-#    return int(input())
-#
-#def selctAllDates():
-#    print("Please select a date to book:\t(number input)")
-#    for i in range(1,len(allDates)):
-#        print("["+str(i)+"] "+allDates[i])
-#    return int(input())
-#
-#def selectAvabileTimes(date,room,bookings):
-#    print("Please select a time to book:\t(number input)")
-#    avaTimes = getAvabileTimes(date,room,bookings)
-#    for i in range(1,len(avaTimes)):
-#        print("["+str(i)+"] "+avaTimes[i])
-#    return avaTimes,int(input())
-#
+
 def getAvabileTimes(date,room,bookings):
     avaTimes = []
     for i in allTimes:
