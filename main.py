@@ -8,11 +8,14 @@ booking = []
 
 @app.route('/')
 def home():
-    return render_template('home.html', data=[c.allRooms, c.allDates, c.allTimes])
+    return render_template('home.html', data=[c.allRooms, c.allDates, c.allTimes], datetime=datetime)
 
 @app.route('/submit_form1', methods=['POST', 'GET'])
 def onSubmit():
     room = request.form['room']
+    date = request.form['dateS']
+    age = request.form['age']
+    numOfPeople = request.form['numOfPpl']
     date = request.form['dateS']
     numOfPeople = request.form['numOfPpl']
     length = request.form['length']
@@ -27,8 +30,8 @@ def onSubmit():
 
     print(booking)
     data.append([room, date])
-    return render_template('selectTime.html', data=data)
-        
+    return render_template('selectTime.html', data=[c.allRooms, c.allDates, c.allTimes])
+    
 @app.route('/submit_form2', methods=['POST', 'GET'])
 def onTimeSubmit():
     time = request.form['time']
@@ -38,7 +41,5 @@ def onTimeSubmit():
     c.addBooking(booking)
     booking = []
     return render_template('confirm.html', date=booking)
-
-
 if __name__ == '__main__':
     app.run()

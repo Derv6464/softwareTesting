@@ -12,33 +12,35 @@
                 <div>
                     <label for="room">Select Room</label>
                     <select name="room" placeholder="Select Room Below">
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
+                        {% for room in data[0] %}
+                            <option value="{{ room.name }}">{{ room.name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div>
                     <label for="dateS">Select Your Dates</label>
-                    <input name="dateS" type="date" min="2023-04-25" max="2023-05-25">
+                    <input name="dateS" type="date" min="{{ datetime.datetime.today().strftime('%Y-%m-%d') }}" max="{{ (datetime.datetime.today() + datetime.timedelta(days=30)).strftime('%Y-%m-%d') }}">
                 </div>
                 <div>
                     <label for="age">Select Age Range</label>
                     <select name="age" placeholder="Select Age Below">
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
+                        <option>0-5</option>
+                        <option>5-12</option>
+                        <option>12-18</option>
+                        <option>18-65</option>
+                        <option>65+</option>
                     </select>
                 </div>
                 <div>
-                    <label for="numOfPpl">Enter the number of anttendees</label>
-                    <input name="numOfPpl" type="number" min="1">
+                    <label for="numOfPpl">Enter the number of attendees</label>
+                    <input name="numOfPpl" type="number" min="1" max="">
                 </div>
                 <div>
                     <label for="length">Select meeting length</label>
                     <select name="length" placeholder="Select Time Length Below">
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
+                        <option>1 hour</option>
+                        <option>2 hours</option>
+                        <option>3 hours</option>
                     </select>
                 </div>
                 <button type="submit" >
