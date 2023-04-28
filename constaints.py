@@ -53,9 +53,12 @@ def form1Checks(booking):
     if not checkNulls(booking):
         errorMSG += "leave any fields blank, "
         passes = False
-    #if not checkMax(booking[2]):
-    #    errorMSG += "book more than the max amount of people, "
-    #    passes = False
+    if not ageRange(booking[0], booking[4]):
+        errorMSG += "book this room with your selected age range"
+        passes = False
+    if not maxOcc(booking[0], booking[2]):
+        errorMSG += "have that many people in your selected room"
+        passes = False
     return [passes,errorMSG[:-2]]
 
 
@@ -79,29 +82,32 @@ def ageRange(room, age):
     else:
         return False
         
-    for item in allRooms:
-        if item.name == room:
-            if age < item.maxAge:
-                return True
-            else:
-                return False
-            
-#def ageRange(room, age):
-#    minAgeIn, maxAgeIn = age.split("-")
-#    minAgeIn = int(minAgeIn)
-#    maxAgeIn = int(maxAgeIn)
-#    targetRoom = getRoom(room)
-#    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
-#        return True
-#    else:
-#        return False
-
-def getAvabileTimes(date,room,bookings):
+def maxOcc(room, numOfPeople):
+    targetRoom = getRoom(room)
+    if (numOfPeople > targetRoom.max):
+        return True
+    else:
+        return False
+        
+def getAvabileTimes(date, room, length ,bookings):
+    meetLength =int(length.split()[0])
     avaTimes = []
-    for i in allTimes:
-        for j in bookings:
-            if j[2] != date and j[1] != room and j[3] != i:
-                avaTimes.append(i)
+    if meetLength ==1 :
+        for i in allTimes:
+            for j in bookings:
+                if j[2] != date and j[1] != room and j[3] != i:
+                    avaTimes.append(i)
+    elif meetLength == 2:
+            for i in allTimes:
+                for j in bookings:
+                    if j[2] != date and j[1] != room and j[3] != i and j[3] != i+1:
+                        avaTimes.append(i)
+    elif meetLength == 3:
+        for i in allTimes:
+            for j in bookings:
+                if j[2] != date and j[1] != room and j[3] != i and j[3] != i+1 and j[3] != i+2:
+                    avaTimes.append(i)
+
     return avaTimes
 
 def addBooking(booking):
