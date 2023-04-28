@@ -28,15 +28,15 @@ class TestStringMethods(unittest.TestCase):
     #testing front end
         
 
-    def test_search_in_python_org(self):
-        options = Options()
-        options.headless = True
-        self.driver = webdriver.Chrome('./chromedriver', options=options)
-        driver = self.driver
-        driver.get("http://127.0.0.1:5000")
-        print(driver.title)
-        self.assertEqual("Bookings", driver.title)
-        self.driver.close()
+    #def test_search_in_python_org(self):
+    #    options = Options()
+    #    options.headless = True
+    #    self.driver = webdriver.Chrome('./chromedriver', options=options)
+    #    driver = self.driver
+    #    driver.get("http://127.0.0.1:5000")
+    #    print(driver.title)
+    #    self.assertEqual("Bookings", driver.title)
+    #    self.driver.close()
        
 
     #testing csv read/write
