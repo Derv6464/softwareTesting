@@ -46,6 +46,12 @@ def form1Checks(booking):
     if not checkHoliday(booking[1]):
         errorMSG += "book on holidays,"
         passes = False
+    if not ageRange(booking[0], booking[4]):
+        errorMSG += "book this room with your selected age range"
+        passes = False
+    if not maxOcc(booking[0], booking[2]):
+        errorMSG += "have that many people in your selected room"
+        passes = False
     return [passes,errorMSG]
 
 def form2Checks(booking):
@@ -67,13 +73,33 @@ def ageRange(room, age):
         return True
     else:
         return False
+
+def maxOcc(room, numOfPeople):
+    targetRoom = getRoom(room)
+    if (numOfPeople > targetRoom.max):
+        return True
+    else:
+        return False
         
-def getAvabileTimes(date,room,bookings):
+def getAvabileTimes(date, room, length ,bookings):
+    meetLength =int(length.split()[0])
     avaTimes = []
-    for i in allTimes:
-        for j in bookings:
-            if j[2] != date and j[1] != room and j[3] != i:
-                avaTimes.append(i)
+    if meetLength ==1 :
+        for i in allTimes:
+            for j in bookings:
+                if j[2] != date and j[1] != room and j[3] != i:
+                    avaTimes.append(i)
+    elif meetLength == 2:
+            for i in allTimes:
+                for j in bookings:
+                    if j[2] != date and j[1] != room and j[3] != i and j[3] != i+1:
+                        avaTimes.append(i)
+    elif meetLength == 3:
+        for i in allTimes:
+            for j in bookings:
+                if j[2] != date and j[1] != room and j[3] != i and j[3] != i+1 and j[3] != i+2:
+                    avaTimes.append(i)
+
     return avaTimes
 
 def addBooking(booking):
