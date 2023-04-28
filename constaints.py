@@ -4,7 +4,12 @@ import requests
 url = "https://holidays.abstractapi.com/v1/"
 api_key = "f9eb73a590b245259d9ecf7b8717445b"
 
+
 moonAPI = "https://api.sunrise-sunset.org/json."
+
+#csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
+
+
 def getBookings():
     bookings = []
     with open("bookings.csv", 'r') as file:
@@ -14,24 +19,18 @@ def getBookings():
     return bookings
 
 bookings = getBookings()
-#allRooms = ["Meeting", "Moon", "Food", "Young Kids", "Old Kids", "Adults", "Seniors", "All Ages"]
-maxOccupancy =[]
-allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
-#can only book a date make 1 week in adavance (i week of dates avaible to book), date format: mm/dd/yy
-allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
+booking = []
 
 class Room:
-<<<<<<< HEAD
-    def __init__(self,name, maxO):
-        self.name = name
-        self.maxO = maxO
-
-allRooms = [Room("Meeting", 300), Room("Moon", 20), Room("Food", 10), Room("Young Kids", 30), Room("Old Kids", 100), Room("Adults", 20), Room("Seniors", 65), Room("All Ages", 215)]
-=======
-    def __init__(self,name, max):
+    def __init__(self,name, max, maxAge,minAge):
         self.name = name
         self.max = max
->>>>>>> main
+        self.maxAge = maxAge
+        self.minAge = minAge
+
+allTimes = ["9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
+allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
+allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 20, 46, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 64, 18), Room("Seniors", 65, 100, 65), Room("All Ages", 160, 100, 0)]
 
 class User:
     def __init__(self, booking, id, size, date):
@@ -40,29 +39,61 @@ class User:
         self.size = size
         self.date = date
 
-def getDay(date):
-    return date
+def form1Checks(booking):
+    errorMSG = "You can't: "
+    passes = True
+    if not checkWeekend(booking[1]):
+        errorMSG += "book on weekends, "
+        passes = False
+    if not checkHoliday(booking[1]):
+        errorMSG += "book on holidays, "
+        passes = False
+    if not checkNulls(booking):
+        errorMSG += "leave any fields blank, "
+        passes = False
+    #if not checkMax(booking[2]):
+    #    errorMSG += "book more than the max amount of people, "
+    #    passes = False
+    return [passes,errorMSG[:-2]]
 
 
-#def selectAllRooms():
-#    print("Please select a room to book:\t(number input)")
-#    for i in range(1,len(allRooms)):
-#        print("["+str(i)+"] "+allRooms[i] + " room")
-#    return int(input())
-#
-#def selctAllDates():
-#    print("Please select a date to book:\t(number input)")
-#    for i in range(1,len(allDates)):
-#        print("["+str(i)+"] "+allDates[i])
-#    return int(input())
-#
-#def selectAvabileTimes(date,room,bookings):
-#    print("Please select a time to book:\t(number input)")
-#    avaTimes = getAvabileTimes(date,room,bookings)
-#    for i in range(1,len(avaTimes)):
-#        print("["+str(i)+"] "+avaTimes[i])
-#    return avaTimes,int(input())
-#
+def form2Checks(booking):
+    if not userBooked(booking, bookings):
+        return [False, "You already have a booking at this time"]
+
+def getRoom(roomName):
+    for room in allRooms:
+        if room.name == roomName:
+            return room
+    return False
+
+def ageRange(room, age):
+    minAgeIn, maxAgeIn = age.split("-")
+    minAgeIn = int(minAgeIn)
+    maxAgeIn = int(maxAgeIn)
+    targetRoom = getRoom(room)
+    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
+        return True
+    else:
+        return False
+        
+    for item in allRooms:
+        if item.name == room:
+            if age < item.maxAge:
+                return True
+            else:
+                return False
+            
+#def ageRange(room, age):
+#    minAgeIn, maxAgeIn = age.split("-")
+#    minAgeIn = int(minAgeIn)
+#    maxAgeIn = int(maxAgeIn)
+#    targetRoom = getRoom(room)
+#    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
+#        return True
+#    else:
+#        return False
+
 def getAvabileTimes(date,room,bookings):
     avaTimes = []
     for i in allTimes:
@@ -71,67 +102,50 @@ def getAvabileTimes(date,room,bookings):
                 avaTimes.append(i)
     return avaTimes
 
-
-def makeSelection():
-    room = allRooms[selectAllRooms()]
-    date = allDates[selctAllDates()]
-    timeSelection = selectAvabileTimes(date,room,getBookings())
-    time = timeSelection[0][timeSelection[1]]
-    return room, time, date
-
 def addBooking(booking):
     #include id if we do id, and make booking refrence
     with open("bookings.csv", 'a') as file:
         writer = csv.writer(file)
         writer.writerow(booking)
     getBookings()
-
-def book(room, time,id):
-    bookingTime = datetime.datetime(hour=time, minute=0, second=0, microsecond=0)
-    now = datetime.datetime.now()
-    #if not checkTime(time):
-    #    return False
-    #if not checkValidId(id):
-    #    return False
     
-    #if checks passes
-    addBooking(makeSelection(allRooms,allTimes,allDates),id)
-    
-#def checkTime(time):
-#    bookingTime = datetime(hour=time, minute=0, second=0, microsecond=0)
-#    eightOclock = datetime(hour=20, minute=0, second=0, microsecond=0)
-#    if bookingTime > eightOclock:
-#        print("Too late to book")
-#        return False
 
 def checkValidId(id):
     return True
     
-#def checkDoubleBook():
-#    if Room.booked == True:
-#        print("Room already booked")
-#        return False
-    
-def userBooked():
-    if User.booking == True:
-        print("You already have a booking")
-        return False
+#tempBooking = [room, date, numOfPeople, length, age,time]
+#csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
+#must be checked after second form is submited
+def userBooked(booking, bookings):
+    for i in bookings:
+        if i[0] == booking[0].name and i[1] == booking[1] and i[3] == booking[5]:
+            return False
+    return True
 
-def checkMax():
-    if User.size < Room.max:
-        print("This room has insufficient space")
+def checkMax(people):
+    if people < Room.max:
         return False
-def checkWeekend():
-    now = datetime.now()
-    if now.weekday() > 4:
+    else:
+        return True
+    
+def checkWeekend(date):
+    if date.weekday() > 4:
         print("Cannot book on weekend")
         return False
+    else:
+        return True
     
 def checkTimeInAdvance(now,bookingTime):
     if now + 3 < bookingTime:
         print("Must book 3 hours in advance")
         return False
     return True 
+
+def checkNulls(booking):
+    for i in booking:
+        if i == "":
+            return False
+    return True
     
 def checkHoliday(date):
     country = "IE"
@@ -139,7 +153,7 @@ def checkHoliday(date):
     month = date.month
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
-    if response: 
+    if response.text != "[]": 
         return False
     else:
         return True
