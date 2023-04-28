@@ -47,9 +47,9 @@ def form1Checks(booking):
     if not checkNulls(booking):
         errorMSG += "leave any fields blank, "
         passes = False
-    if not checkMax(booking[2]):
-        errorMSG += "book more than the max amount of people, "
-        passes = False
+    #if not checkMax(booking[2]):
+    #    errorMSG += "book more than the max amount of people, "
+    #    passes = False
     return [passes,errorMSG[:-2]]
 
 
@@ -73,6 +73,22 @@ def ageRange(room, age):
     else:
         return False
         
+    for item in allRooms:
+        if item.name == room:
+            if age < item.maxAge:
+                return True
+            else:
+                return False
+            
+#def ageRange(room, age):
+#    minAgeIn, maxAgeIn = age.split("-")
+#    minAgeIn = int(minAgeIn)
+#    maxAgeIn = int(maxAgeIn)
+#    targetRoom = getRoom(room)
+#    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
+#        return True
+#    else:
+#        return False
 
 def getAvabileTimes(date,room,bookings):
     avaTimes = []
