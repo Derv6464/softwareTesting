@@ -61,10 +61,14 @@ def form1Checks(booking):
         passes = False
     return [passes,errorMSG[:-2]]
 
-
 def form2Checks(booking):
-    if not userBooked(booking, bookings):
-        return [False, "You already have a booking at this time"]
+    errorMSG = "You can't: "
+    passes = True
+    if not userBooked(booking[5], booking[6], booking[1], booking[2], bookings):
+        errorMSG += "You already have a booking at this time"
+        passes = False
+    return [passes, errorMSG]
+    
 
 def getRoom(roomName):
     for room in allRooms:
@@ -80,7 +84,8 @@ def ageRange(room, age):
         return False
     else:
         return True
-        
+
+
 def maxOcc(room, numOfPeople):
     if (numOfPeople > room.max):
         return False
@@ -120,11 +125,11 @@ def checkValidId(id):
     return True
     
 #tempBooking = [room, date, numOfPeople, length, age,time]
-#csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
+#csv order = Room,Date,Time,Age,Length,userID,bookingRef
 #must be checked after second form is submited
-def userBooked(booking, bookings):
-    for i in bookings:
-        if i[0] == booking[0].name and i[1] == booking[1] and i[3] == booking[5]:
+def userBooked(name, phone, date, time, bookings) :
+    for booking in bookings:
+        if name == booking[5] and phone == booking[6] and date == booking[1] and time == booking[2]:
             return False
     return True
 

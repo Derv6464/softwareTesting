@@ -43,12 +43,21 @@ def onSubmit():
 @app.route('/submit_form2', methods=['POST', 'GET'])
 def onTimeSubmit():
     time = request.form['time']
-    print(time)
     #do booking checks
-    c.booking.append(time)
-    print(c.booking)
-    #c.addBooking(booking)
-    return render_template('confirm.html', data=c.booking)
+        
+    temp2Booking = c.booking
+    temp2Booking.append(time)
+    print(temp2Booking)
+    formChecks = c.form2Checks(temp2Booking)
+    if formChecks[0]:
+        c.booking.append(time)
+        print(booking)
+        temp2Booking = []
+        c.addBooking(c.booking)
+        return render_template('confirm.html', data=c.booking)
+    else:
+        flash(formChecks[1])
+        return render_template('selectTime.html', data=times)
 
 if __name__ == '__main__':
     app.run()
