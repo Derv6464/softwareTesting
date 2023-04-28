@@ -23,8 +23,18 @@
             <div>
                 <div class="grid">
                     <div>
+                        <label for="fName">Enter your name</label>
+                        <input name ="fName" type="text" required>
+                    </div>
+                    <div>
+                        <label for="phoneN">Enter your phone number</label>
+                        <input name="phoneN" type="tel" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" required>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div>
                         <label for="room">Select Room</label>
-                        <select name="room" placeholder="Select Room Below">
+                        <select name="room" placeholder="Select Room Below" required>
                             {% for room in data %}
                                 <option value="{{ room.name }}">{{ room.name }} room</option>
                             {% endfor %}
@@ -32,13 +42,13 @@
                     </div>
                     <div>
                         <label for="dateS">Select Your Dates</label>
-                        <input name="dateS" type="date" min="{{ datetime.datetime.today().strftime('%Y-%m-%d') }}" max="{{ (datetime.datetime.today() + datetime.timedelta(days=30)).strftime('%Y-%m-%d') }}">
+                        <input required name="dateS" type="date" min="{{ datetime.datetime.today().strftime('%Y-%m-%d') }}" max="{{ (datetime.datetime.today() + datetime.timedelta(days=30)).strftime('%Y-%m-%d') }}">
                     </div>
                 </div>
                 <div class="grid">
                     <div>
                         <label for="age">Select Age Range</label>
-                        <select name="age" placeholder="Select Age Below">
+                        <select required name="age" placeholder="Select Age Below">
                             <option>0-12</option>
                             <option>12-18</option>
                             <option>18-65</option>
@@ -47,11 +57,11 @@
                     </div>
                     <div>
                         <label for="numOfPpl">Enter the number of attendees</label>
-                        <input name="numOfPpl" type="number" min="1" max="">
+                        <input required name="numOfPpl" type="number" min="1" max="">
                     </div>
                     <div>
                         <label for="length">Select meeting length</label>
-                        <select name="length" placeholder="Select Time Length Below">
+                        <select required name="length" placeholder="Select Time Length Below">
                             <option>1 hour</option>
                             <option>2 hours</option>
                             <option>3 hours</option>

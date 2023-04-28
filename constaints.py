@@ -24,7 +24,7 @@ bookings = getBookings()
 booking = []
 
 class Room:
-    def __init__(self,name, max, maxAge,minAge):
+    def __init__(self,name, max, maxAge, minAge):
         self.name = name
         self.max = max
         self.maxAge = maxAge
@@ -56,7 +56,7 @@ def form1Checks(booking):
     if not ageRange(booking[0], booking[4]):
         errorMSG += "book this room with your selected age range"
         passes = False
-    if not maxOcc(booking[0], booking[2]):
+    if not maxOcc(booking[0], int(booking[2])):
         errorMSG += "have that many people in your selected room"
         passes = False
     return [passes,errorMSG[:-2]]
@@ -76,18 +76,16 @@ def ageRange(room, age):
     minAgeIn, maxAgeIn = age.split("-")
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
-    targetRoom = getRoom(room)
-    if (minAgeIn >= targetRoom.minAge and maxAgeIn <= targetRoom.maxAge):
-        return True
-    else:
+    if (minAgeIn >= room.minAge and maxAgeIn <= room.maxAge):
         return False
+    else:
+        return True
         
 def maxOcc(room, numOfPeople):
-    targetRoom = getRoom(room)
-    if (numOfPeople > targetRoom.max):
-        return True
-    else:
+    if (numOfPeople > room.max):
         return False
+    else:
+        return True
         
 def getAvabileTimes(date, room, length ,bookings):
     meetLength =int(length.split()[0])

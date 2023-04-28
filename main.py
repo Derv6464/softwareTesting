@@ -16,25 +16,24 @@ def home():
 
 @app.route('/submit_form1', methods=['POST', 'GET'])
 def onSubmit():
+    name = request.form['fName']
+    phone = request.form['phoneN']
     room = request.form['room']
     date = request.form['dateS']
     age = request.form['age']
     numOfPeople = request.form['numOfPpl']
-    date = request.form['dateS']
-    numOfPeople = request.form['numOfPpl']
     length = request.form['length']
-    age = request.form['age']
     #do booking checks 
     print(date)
     date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
     room = c.getRoom(room)
-    tempBooking = [room, date, numOfPeople, length, age]
+    tempBooking = [room, date, numOfPeople, length, age, name, phone]
     formChecks = c.form1Checks(tempBooking)
     if formChecks[0]:
         c.booking = tempBooking
         print(booking)
         tempBooking = []
-        times = c.getAvabileTimes(date, room, c.getBookings())
+        times = c.getAvabileTimes(date, room,length, c.getBookings())
         return render_template('selectTime.html', data=times)
     else:
         flash(formChecks[1])
