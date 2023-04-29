@@ -100,17 +100,15 @@ def getAvabileTimes(date, room, length ,bookings):
     for i in bookings:
         if i[1] == str(date) and i[0] == room.name:
             daysBookings.append(i)
-    print("\ndaysBookings:")
-    print(daysBookings)
-    print("\n")
+    print(type(bookings[0][7]))
     if not daysBookings:
         return allTimes
     avaTimes = []
     addTime = True
+    
     if meetLength ==1 :
         for i in allTimes:
             for j in daysBookings:
-                print(j[7],i)
                 if j[7] == i:
                     addTime = False
             if addTime:
@@ -119,22 +117,29 @@ def getAvabileTimes(date, room, length ,bookings):
     #adding 1 ]/2 prob wont work cause date is a string in the csv
     elif meetLength == 2:
             for i in allTimes:
-                for j in bookings:
-                    if j[1] != date and j[0] != room and j[7] != i and j[7] != i+1:
-                        avaTimes.append(i)
+                for j in daysBookings:
+                    if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')):
+                        addTime = False
+                if addTime:
+                    avaTimes.append(i)
+                addTime = True
     elif meetLength == 3:
         for i in allTimes:
-            for j in bookings:
-                if j[1] != date and j[0] != room and j[7] != i and j[7] != i+1 and j[7] != i+2:
-                    avaTimes.append(i)
+            for j in daysBookings:
+                if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')) or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=2)).strftime('%H:%M')):
+                    addTime = False
+            if addTime:
+                avaTimes.append(i)
     print(avaTimes)
     return avaTimes
 
 def addBooking(booking):
     #include id if we do id, and make booking refrence
     d = open("bookings.csv", 'a')
-    d.write( "\n")
-    d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + str(booking[3]) + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6]+","+str(booking[7])))
+    
+    for i in range(int(booking[3][0])):
+        d.write( "\n")
+        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + str(booking[3]) + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6]+","+str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))))
     d.close()
 
     getBookings()
