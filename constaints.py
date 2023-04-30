@@ -153,7 +153,7 @@ def checkValidId(id):
 #must be checked after second form is submited
 def userBooked(name, phone, date, time, bookings) :
     for booking in bookings:
-        if name == booking[5] and phone == booking[6] and date == booking[1] and time == booking[2]:
+        if name == booking[5] and phone == booking[6] and date == booking[1] and time == booking[7]:
             return False
     return True
 
