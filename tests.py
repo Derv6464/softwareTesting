@@ -21,25 +21,29 @@ class TestStringMethods(unittest.TestCase):
             ["Meeting", '2023-04-17',22, "1 hour", 60, 'Bob', '0123456789', '15:00']
         ]
         self.newBookingOne = ["Meeting", '2023-04-16', 100, "1 hour", 40, 'Jane', '9876543210', '14:00']
-        self.newBookingTwo = ["Meeting", '2023-04-17', 100, "1 hour", 40, 'Bob', '9876543210', '14:00']
-        self.newBookingNulls = ["", '2023-04-17', 100, "1 hour", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingTwo = ["Meeting", '2023-04-17', 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingNulls = ["", '2023-04-17', 25, "1 hour", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingMax = ["Food", '2023-04-17', 60, "1 hour", 40, 'Sarah', '9876543210', '14:00']
     
     #api testing
     def test_checkHoliday(self):
-        #check to ensure that the function returns true when the date is a holiday
+        # check to ensure that the function returns false when the date is a holiday
         self.assertEqual(c.checkHoliday(self.Christmas), False)
+        # check to ensure that the function returns true when the date isn't a holiday
+        #self.assertEqual(c.checkHoliday(datetime.datetime(2023, 4, 30)), True)
 
     def test_userBooked(self):
         #check to ensure that the function returns False when the user already has a booking
         self.assertEqual(c.userBooked(self.newBookingOne[5], self.newBookingOne[6], self.newBookingOne[1], self.newBookingOne[7], self.bookings),False)
-
-    def test_userNotBooked(self):
         #check to ensure that the function returns true when the user doesnt already have a booking
         self.assertEqual(c.userBooked(self.newBookingTwo[5], self.newBookingTwo[6], self.newBookingTwo[1], self.newBookingTwo[7], self.bookings),True)
+ 
 
     def test_checkWeekend(self):
-        #check to ensure that the function returns true when the date is a weekend
-        self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,28)), True)
+        #check to ensure that the function returns false when the date is a weekend
+        self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,29)), False)
+        #check to ensure that the function returns true when the date isnt a weekend
+        self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,25)), True)
 
     def test_checkNulls(self):
         #check to make sure no fields are null and returns true
@@ -56,7 +60,14 @@ class TestStringMethods(unittest.TestCase):
         #check to ensure that the function returns false when the date isnt a full moon
         self.assertEqual(c.checkFullMoon(self.Christmas), False)
 
-    #testing front end
+    def test_checkMaxOcc(self):
+         #check to ensure that the function returns true when the room is not at max capacity
+         self.assertEqual(c.maxOcc(self.TestRoom, 4), True)
+         #check to ensure that the function returns false when the room is at max capacity
+         self.assertEqual(c.maxOcc(self.TestRoom, 8), False)
+    
+    
+    # #testing front end
         
 
     #def test_search_in_python_org(self):
