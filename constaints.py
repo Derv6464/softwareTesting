@@ -19,7 +19,6 @@ def getBookings():
         for row in reader:
             bookings.append(row)
     return bookings
-    
 
 bookings = getBookings()
 booking = []
@@ -95,30 +94,54 @@ def maxOcc(room, numOfPeople):
         
 def getAvabileTimes(date, room, length ,bookings):
     meetLength =int(length.split()[0])
+
+    #make lists of all booking on that day and room
+    daysBookings = []
+    for i in bookings:
+        if i[1] == str(date) and i[0] == room.name:
+            daysBookings.append(i)
+    print(type(bookings[0][7]))
+    if not daysBookings:
+        return allTimes
     avaTimes = []
+    addTime = True
+    
     if meetLength ==1 :
         for i in allTimes:
-            for j in bookings:
-                if j[2] != date and j[1] != room and j[3] != i:
-                    avaTimes.append(i)
+            for j in daysBookings:
+                if j[7] == i:
+                    addTime = False
+            if addTime:
+                avaTimes.append(i)
+            addTime = True
+    #adding 1 ]/2 prob wont work cause date is a string in the csv
     elif meetLength == 2:
             for i in allTimes:
-                for j in bookings:
-                    if j[2] != date and j[1] != room and j[3] != i and j[3] != i+1:
-                        avaTimes.append(i)
+                for j in daysBookings:
+                    if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')):
+                        addTime = False
+                if addTime:
+                    avaTimes.append(i)
+                addTime = True
     elif meetLength == 3:
         for i in allTimes:
-            for j in bookings:
-                if j[2] != date and j[1] != room and j[3] != i and j[3] != i+1 and j[3] != i+2:
-                    avaTimes.append(i)
-
+            for j in daysBookings:
+                if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')) or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=2)).strftime('%H:%M')):
+                    addTime = False
+            if addTime:
+                avaTimes.append(i)
+    print(avaTimes)
     return avaTimes
 
 def addBooking(booking):
     #include id if we do id, and make booking refrence
-    with open("bookings.csv", 'a') as file:
-        writer = csv.writer(file)
-        writer.writerow(booking)
+    d = open("bookings.csv", 'a')
+    
+    for i in range(int(booking[3][0])):
+        d.write( "\n")
+        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + str(booking[3]) + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6]+","+str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))))
+    d.close()
+
     getBookings()
     
 
@@ -130,7 +153,7 @@ def checkValidId(id):
 #must be checked after second form is submited
 def userBooked(name, phone, date, time, bookings) :
     for booking in bookings:
-        if name == booking[5] and phone == booking[6] and date == booking[1] and time == booking[7]:
+        if name == booking[5] and phone == booking[6] and date == booking[1] and time == booking[2]:
             return False
     return True
 
@@ -165,10 +188,11 @@ def checkHoliday(date):
     month = date.month
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
-    if response.text != "[]": 
-        return False
-    else:
+    print("holiday api:" + response.text)
+    if response.text == "[]" or response.text == '{"error":{"message":"You have exceeded the requests per second allowed by your current plan. Visit the Abstract dashboard to upgrade for a higher limit.","code":"too_many_requests","details":null}}': 
         return True
+    else:
+        return False
     
 def checkFullMoon(date):
     i = IsFullMoon()
