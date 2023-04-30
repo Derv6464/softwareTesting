@@ -34,9 +34,9 @@ class TestStringMethods(unittest.TestCase):
 
     def test_userBooked(self):
         #check to ensure that the function returns False when the user already has a booking
-        self.assertEqual(c.userBooked(self.newBookingOne[5], self.newBookingOne[6], self.newBookingOne[1], self.newBookingOne[7], self.bookings),False)
+        self.assertEqual(c.userBooked(self.newBookingOne[5], self.newBookingOne[6], datetime.datetime.strptime(self.newBookingOne[1], "%Y-%m-%d"), self.newBookingOne[7], self.bookings),False)
         #check to ensure that the function returns true when the user doesnt already have a booking
-        self.assertEqual(c.userBooked(self.newBookingTwo[5], self.newBookingTwo[6], self.newBookingTwo[1], self.newBookingTwo[7], self.bookings),True)
+        self.assertEqual(c.userBooked(self.newBookingTwo[5], self.newBookingTwo[6], datetime.datetime.strptime(self.newBookingTwo[1], "%Y-%m-%d"), self.newBookingTwo[7], self.bookings),True)
  
 
     def test_checkWeekend(self):
@@ -86,5 +86,4 @@ class TestStringMethods(unittest.TestCase):
     
 if __name__ == '__main__':
     unittest.main()
-
 

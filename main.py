@@ -35,8 +35,11 @@ def onSubmit():
         tempBooking = []
         times =[]
         times = c.getAvabileTimes(date, room,length, c.getBookings())
-        print(times)
-        return render_template('selectTime.html', data=times)
+        if times:
+            return render_template('selectTime.html', data=times)
+        else:
+            flash("There are no avabile times for that date")
+            return render_template('home.html', data=c.allRooms, datetime=datetime)
     else:
         flash(formChecks[1])
         return render_template('home.html', data=c.allRooms, datetime=datetime)

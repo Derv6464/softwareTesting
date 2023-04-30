@@ -7,6 +7,16 @@
     </head>
     <body>
         <main class="container">
+        {% for message in get_flashed_messages() %}
+            <dialog open>
+                <article>
+                    {{ message }}
+                <footer>
+                    <a href="/" role="button">Ok</a>
+                </footer>
+                </article>
+            </dialog>
+        {% endfor %} 
         <form action="/submit_form2" method="POST">
             <div >
                 <div>
