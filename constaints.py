@@ -25,9 +25,9 @@ bookings = getBookings()
 booking = []
 
 class Room:
-    def __init__(self,name, max, maxAge, minAge):
+    def __init__(self,name, maxO, maxAge, minAge):
         self.name = name
-        self.max = max
+        self.maxO = maxO
         self.maxAge = maxAge
         self.minAge = minAge
 
@@ -88,7 +88,7 @@ def ageRange(room, age):
 
 
 def maxOcc(room, numOfPeople):
-    if (numOfPeople > room.max):
+    if (numOfPeople > room.maxO):
         return False
     else:
         return True
