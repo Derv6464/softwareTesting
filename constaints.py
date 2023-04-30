@@ -19,6 +19,7 @@ def getBookings():
         for row in reader:
             bookings.append(row)
     return bookings
+    
 
 bookings = getBookings()
 booking = []
