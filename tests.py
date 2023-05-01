@@ -66,19 +66,6 @@ class TestStringMethods(unittest.TestCase):
          #check to ensure that the function returns false when the room is at max capacity
          self.assertEqual(c.maxOcc(self.TestRoom, 8), False)
     
-    
-    # #testing front end
-        
-
-    #def test_search_in_python_org(self):
-    #    options = Options()
-    #    options.headless = True
-    #    self.driver = webdriver.Chrome('./chromedriver', options=options)
-    #    driver = self.driver
-    #    driver.get("http://127.0.0.1:5000")
-    #    print(driver.title)
-    #    self.assertEqual("Bookings", driver.title)
-    #    self.driver.close()
        
 
     #testing csv read/write

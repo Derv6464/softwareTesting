@@ -98,8 +98,9 @@ def getAvabileTimes(date, room, length ,bookings):
     #make lists of all booking on that day and room
     daysBookings = []
     for i in bookings:
-        if i[1] == str(date) and i[0] == room.name:
-            daysBookings.append(i)
+        if i:
+            if i[1] == str(date) and i[0] == room.name:
+                daysBookings.append(i)
     
     if not daysBookings:
         return allTimes
