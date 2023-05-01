@@ -7,7 +7,7 @@ import time
 class TestFrontend(unittest.TestCase):
     def setUp(self):
         options = Options()
-        options.headless = True
+        options.headless = False
         self.driver = webdriver.Chrome(options=options)
         self.driver.get("http://127.0.0.1:5000")
     
@@ -37,8 +37,17 @@ class TestFrontend(unittest.TestCase):
             self.driver.find_element(By.XPATH,i[0]).send_keys(i[1])
         self.driver.find_element(By.XPATH,"/html/body/main/form/div/button").click()
 
-        self.driver.find_element(By.XPATH,"/html/body/main/form/div/div/select").send_keys('/html/body/main/form/div/div/select/option[10]')
-        self.assertTrue("Confirmation", self.driver.title)
+        self.assertTrue( self.driver.find_element(By.NAME,"time"))
+
+    def test_inputsformTwo(self):
+        xpaths = [['/html/body/main/form/div/div[1]/div[1]/input',"selenium"],['/html/body/main/form/div/div[1]/div[2]/input','000 000 0000'],['/html/body/main/form/div/div[2]/div[1]/select','/html/body/main/form/div/div[2]/div[1]/select/option[1]'],['/html/body/main/form/div/div[2]/div[2]/input','2021-05-18'],['/html/body/main/form/div/div[3]/div[1]/select','/html/body/main/form/div/div[3]/div[1]/select/option[1]'],['/html/body/main/form/div/div[3]/div[2]/input','10'],['/html/body/main/form/div/div[3]/div[3]/select','/html/body/main/form/div/div[3]/div[3]/select/option[1]']]
+        for i in xpaths:
+            self.driver.find_element(By.XPATH,i[0]).send_keys(i[1])
+        self.driver.find_element(By.XPATH,"/html/body/main/form/div/button").click()
+        
+        self.driver.find_element(By.XPATH,"/html/body/main/form/div/div/select").send_keys('/html/body/main/form/div/div/select/option[0]')
+        self.driver.find_element(By.XPATH,"/html/body/main/form/div/button").click()
+        self.assertEqual("Confirmation", self.driver.title)
 
     def tearDown(self):
         self.driver.close()
