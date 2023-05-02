@@ -1,11 +1,12 @@
 import datetime
 import csv
+
+from fullmoon import IsFullMoon
 import requests
 url = "https://holidays.abstractapi.com/v1/"
 api_key = "f9eb73a590b245259d9ecf7b8717445b"
 
 
-moonAPI = "https://api.sunrise-sunset.org/json."
 
 #csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
@@ -159,11 +160,6 @@ def checkHoliday(date):
         return True
     
 def checkFullMoon(date):
-    response = requests.get(moonAPI)
-    if response.status_code == 200:
-        data = response.json()
-        if data['moon_phase']['phase'] == 'Full Moon':
-            return True
-    return False
-
-print(checkFullMoon(datetime.datetime.now()))
+    i = IsFullMoon()
+    date = str(date.date())
+    return i.set_date_string(date, '%Y-%m-%d').is_full_moon()
