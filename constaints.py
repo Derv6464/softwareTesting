@@ -53,10 +53,10 @@ def form1Checks(booking):
         errorMSG += "leave any fields blank, "
         passes = False
     if not ageRange(booking[0], booking[4]):
-        errorMSG += "book this room with your selected age range"
+        errorMSG += "book this room with this age range"
         passes = False
     if not maxOcc(booking[0], int(booking[2])):
-        errorMSG += "have that many people in your selected room"
+        errorMSG += "have that many people in this room"
         passes = False
     return [passes,errorMSG[:-2]]
 
