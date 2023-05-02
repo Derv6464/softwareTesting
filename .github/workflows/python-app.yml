@@ -39,7 +39,7 @@ jobs:
       
     - name: Run tests and coverage report
       run: | 
-        coverage run --data-file tests/.coverage -m pytest -s
+        coverage run --data-file tests/.coverage -m unittest -s
         coverage json --data-file tests/.coverage -o buf/tests/coverage.json
         coverage report --data-file tests/.coverage
       
