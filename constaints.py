@@ -188,6 +188,7 @@ def checkHoliday(date):
     month = date.month
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
+    print(response.text)
     if response.text == "[]" or response.text == '{"error":{"message":"You have exceeded the requests per second allowed by your current plan. Visit the Abstract dashboard to upgrade for a higher limit.","code":"too_many_requests","details":null}}': 
         return True
     else:
