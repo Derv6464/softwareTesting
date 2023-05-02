@@ -15,6 +15,7 @@ class TestStringMethods(unittest.TestCase):
         #name, phone, date, time, bookings
         self.Tester = c.User(True, 10, 10, self.Christmas)
         self.TestRoom = c.Room("Meeting",6,100,0)
+        self.TestMoonRoom = c.Room("Moon",6,100,0)
         self.bookings = [
             ["Meeting", '2023-04-15', 11, "1 hour", 44, 'John', '0123456789', '13:00'],
             ["Moon", '2023-04-16', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
@@ -56,9 +57,9 @@ class TestStringMethods(unittest.TestCase):
 
     def test_checkFullMoon(self):
         #check to ensure that the function returns true when the date is a full moon
-        self.assertEqual(c.checkFullMoon(self.fullMoon), True)
+        self.assertEqual(c.checkFullMoon(self.TestMoonRoom,self.fullMoon), True)
         #check to ensure that the function returns false when the date isnt a full moon
-        self.assertEqual(c.checkFullMoon(self.Christmas), False)
+        self.assertEqual(c.checkFullMoon(self.TestMoonRoom,self.Christmas), False)
 
     def test_checkMaxOcc(self):
          #check to ensure that the function returns true when the room is not at max capacity
