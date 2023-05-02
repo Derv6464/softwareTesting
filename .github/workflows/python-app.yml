@@ -37,10 +37,10 @@ jobs:
       run: python3 -u -m unittest tests.py
       
     - name: Run tests and coverage report
-        run:       
-          coverage run --data-file tests/.coverage -m pytest -s
-          coverage json --data-file tests/.coverage -o buf/tests/coverage.json
-          coverage report --data-file tests/.coverage
+      run: | 
+        coverage run --data-file tests/.coverage -m pytest -s
+        coverage json --data-file tests/.coverage -o buf/tests/coverage.json
+        coverage report --data-file tests/.coverage
       
       
       
