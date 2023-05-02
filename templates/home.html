@@ -24,11 +24,12 @@
                 <div class="grid">
                     <div>
                         <label for="fName">Enter your name</label>
-                        <input name ="fName" type="text" required>
+                        <input name ="fName" type="text" pattern = "[a-zA-Z]" required>
                     </div>
                     <div>
                         <label for="phoneN">Enter your phone number</label>
                         <input name="phoneN" type="tel" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" required>
+                        <small>Format: 123 456 7890</small>
                     </div>
                 </div>
                 <div class="grid">
@@ -57,14 +58,14 @@
                     </div>
                     <div>
                         <label for="numOfPpl">Enter the number of attendees</label>
-                        <input required name="numOfPpl" type="number" min="1" max="">
+                        <input required name="numOfPpl" type="number" min="1">
                     </div>
                     <div>
                         <label for="length">Select meeting length</label>
                         <select required name="length" placeholder="Select Time Length Below">
-                            <option>1 hour</option>
-                            <option>2 hours</option>
-                            <option>3 hours</option>
+                            <option value="1 hour">45 mins</option>
+                            <option value="2 hour">1 hour 45 mins</option>
+                            <option value="3 hour">2 hours 45 mins</option>
                         </select>
                     </div>
                 </div>
