@@ -66,6 +66,9 @@ def form2Checks(booking):
     if not userBooked(booking[5], booking[6], booking[1], booking[7], bookings):
         errorMSG += "You already have a booking at this time"
         passes = False
+    if not checkTimeInAdvance(booking[7]):
+        errorMSG += "book less than 3 hours in advance"
+        passes = False
     return [passes, errorMSG]
     
 
@@ -90,9 +93,23 @@ def maxOcc(room, numOfPeople):
         return False
     else:
         return True
+    
+def checkDayTimes(date):
+    useTimes = []
+    currentDate = datetime.datetime.now()
+    print(currentDate.strftime("%H"))
+    if date == currentDate.date():
+        for i in allTimes:
+            if int(currentDate.strftime("%H")) < int(i.split(":")[0]):
+                useTimes.append(i)
+        print(useTimes)
+        return useTimes
+    else:
+        return allTimes
         
 def getAvabileTimes(date, room, length ,bookings):
     meetLength =int(length.split()[0])
+    usableTimes = checkDayTimes(date)
 
     #make lists of all booking on that day and room
     daysBookings = []
@@ -102,12 +119,12 @@ def getAvabileTimes(date, room, length ,bookings):
                 daysBookings.append(i)
     
     if not daysBookings:
-        return allTimes
+        return usableTimes
     avaTimes = []
     addTime = True
 
     if meetLength ==1 :
-        for i in allTimes:
+        for i in usableTimes:
             for j in daysBookings:
                 if j[7] == i:
                     addTime = False
@@ -115,7 +132,7 @@ def getAvabileTimes(date, room, length ,bookings):
                 avaTimes.append(i)
             addTime = True
     elif meetLength == 2:
-            for i in allTimes:
+            for i in usableTimes:
                 for j in daysBookings:
                     if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')):
                         addTime = False
@@ -123,7 +140,7 @@ def getAvabileTimes(date, room, length ,bookings):
                     avaTimes.append(i)
                 addTime = True
     elif meetLength == 3:
-        for i in allTimes:
+        for i in usableTimes:
             for j in daysBookings:
                 if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')) or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=2)).strftime('%H:%M')):
                     addTime = False
@@ -135,7 +152,7 @@ def addBooking(booking):
     d = open("bookings.csv", 'a')
     for i in range(int(booking[3][0])):
         d.write( "\n")
-        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + str(booking[3]) + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6]+","+str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))))
+        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + (int(booking[3][0])-[i])+"hours" + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6]+","+str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))))
     d.close()
 
     getBookings()
@@ -170,8 +187,10 @@ def checkWeekend(date):
     else:
         return True
     
-def checkTimeInAdvance(now,bookingTime):
-    if now + 3 < bookingTime:
+def checkTimeInAdvance(bookingTime):
+    #check this tommorow !!!!!!!
+    now = datetime.datetime.now()
+    if now + datetime.timedelta(hours=3) >= datetime.strptime(bookingTime,"%Y-%m-%d"):
         print("Must book 3 hours in advance")
         return False
     return True 
