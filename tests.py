@@ -52,8 +52,9 @@ class TestStringMethods(unittest.TestCase):
         #check to make sure no fields are null and returns false if there are nulls
         self.assertEqual(c.checkNulls(self.newBookingNulls), False)
 
-    # def test_checkTimeInAdvance(self):
-    #    self.assertEqual(c.checkTimeInAdvance("13:00", self.newBookingOne[7]), True)
+    def test_checkTimeInAdvance(self):
+        self.assertEqual(c.checkTimeInAdvance(self.newBookingOne[7]),self.newBookingOne[1], True)
+        self.assertEqual(c.checkTimeInAdvance(self.newBookingTwo[7]),self.newBookingTwo[1], True)
 
     def test_checkFullMoon(self):
         #check to ensure that the function returns true when the date is a full moon

@@ -191,10 +191,12 @@ def checkWeekend(date):
     else:
         return True
     
-def checkTimeInAdvance(bookingTime):
+def checkTimeInAdvance(bookingTime,date):
     #check this tommorow !!!!!!!
     now = datetime.datetime.now()
-    if now + datetime.timedelta(hours=3) >= datetime.strptime(bookingTime,"%Y-%m-%d"):
+    if date > now:
+        return True
+    if now + datetime.timedelta(hours=3) >= datetime.strftime(bookingTime,"%"):
         print("Must book 3 hours in advance")
         return False
     return True 
@@ -212,7 +214,9 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
     print(response.text)
-    if response.text == "[]" or response.text == '{"error":{"message":"You have exceeded the requests per second allowed by your current plan. Visit the Abstract dashboard to upgrade for a higher limit.","code":"too_many_requests","details":null}}': 
+    if response.status_code!=200:
+        return True
+    if response.text == "[]": 
         return True
     else:
         return False
