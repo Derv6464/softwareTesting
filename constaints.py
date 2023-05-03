@@ -7,7 +7,7 @@ url = "https://holidays.abstractapi.com/v1/"
 api_key = "f9eb73a590b245259d9ecf7b8717445b"
 
 
-
+moonAPI = "https://api.sunrise-sunset.org/json."
 #csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
 
@@ -186,15 +186,17 @@ def checkMax(people):
     
 def checkWeekend(date):
     if date.weekday() > 4:
-        print("Cannot book on weekend")
+        print("Cannot book on the weekend")
         return False
     else:
         return True
     
-def checkTimeInAdvance(bookingTime):
+def checkTimeInAdvance(bookingTime,date):
     #check this tommorow !!!!!!!
     now = datetime.datetime.now()
-    if now + datetime.timedelta(hours=3) >= datetime.strptime(bookingTime,"%Y-%m-%d"):
+    if date > now:
+        return True
+    if now + datetime.timedelta(hours=3) >= datetime.strftime(bookingTime,"%"):
         print("Must book 3 hours in advance")
         return False
     return True 
@@ -212,7 +214,9 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
     print(response.text)
-    if response.text == "[]" or response.text == '{"error":{"message":"You have exceeded the requests per second allowed by your current plan. Visit the Abstract dashboard to upgrade for a higher limit.","code":"too_many_requests","details":null}}': 
+    if response.status_code!=200:
+        return True
+    if response.text == "[]": 
         return True
     else:
         return False
