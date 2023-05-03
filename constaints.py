@@ -58,6 +58,10 @@ def form1Checks(booking):
     if not maxOcc(booking[0], int(booking[2])):
         errorMSG += "have that many people in this room"
         passes = False
+    if not checkFullMoon(booking[0],booking[1]):
+        errorMSG += "book not on a full moon"
+        passes = False
+    
     return [passes,errorMSG[:-2]]
 
 def form2Checks(booking):
@@ -213,7 +217,10 @@ def checkHoliday(date):
     else:
         return False
     
-def checkFullMoon(date):
-    i = IsFullMoon()
-    date = str(date.date())
-    return i.set_date_string(date, '%Y-%m-%d').is_full_moon()
+def checkFullMoon(room,date):
+    if room.name == "Moon":
+        i = IsFullMoon()
+        date = date.strftime("%Y-%m-%d")
+        return i.set_date_string(date, '%Y-%m-%d').is_full_moon()
+    else:
+        return True
