@@ -186,7 +186,7 @@ def checkMax(people):
     
 def checkWeekend(date):
     if date.weekday() > 4:
-        print("Cannot book on weekend")
+        print("Cannot book on the weekend")
         return False
     else:
         return True
