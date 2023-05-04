@@ -98,9 +98,8 @@ def maxOcc(room, numOfPeople):
     else:
         return True
     
-def checkDayTimes(date):
+def checkDayTimes(currentDate, date):
     useTimes = []
-    currentDate = datetime.datetime.now()
     print(currentDate.strftime("%H"))
     if date == currentDate.date():
         for i in allTimes:
@@ -113,8 +112,7 @@ def checkDayTimes(date):
         
 def getAvabileTimes(date, room, length ,bookings):
     meetLength =int(length.split()[0])
-    usableTimes = checkDayTimes(date)
-
+    usableTimes = checkDayTimes(datetime.datetime.now(), date)
     #make lists of all booking on that day and room
     daysBookings = []
     for i in bookings:
@@ -160,11 +158,7 @@ def addBooking(booking):
     d.close()
 
     getBookings()
-    
-
-def checkValidId(id):
-    return True
-    
+   
 #tempBooking = [room, date, numOfPeople, length, age,time]
 #csv order = Room,Date,Time,Age,Length,userID,bookingRef
 #must be checked after second form is submited
@@ -177,13 +171,7 @@ def userBooked(name, phone, date, time, bookings) :
             print('NO BOOKING')
             return False
     return True
-
-def checkMax(people):
-    if people < Room.max:
-        return False
-    else:
-        return True
-    
+   
 def checkWeekend(date):
     if date.weekday() > 4:
         print("Cannot book on the weekend")
