@@ -31,14 +31,13 @@ jobs:
         pip install fullmoon
         pip install requests
         pip install python-dotenv
-
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
-    - name: Test with unittest
-      run: python3 -u -m unittest tests.py
       env: 
         HOLIDAY: ${{secrets.HOLIDAY_API}}
         FLASK: ${{secrets.FLASK}}
+        
+    - name: Test with unittest
+      run: python3 -u -m unittest tests.py
+      
 
       
     
