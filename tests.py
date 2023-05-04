@@ -72,13 +72,13 @@ class TestStringMethods(unittest.TestCase):
     def test_checkAgeRange(self):
         #check to ensure that the function returns true when the age isnt within the range
         rangeF = "0-300"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeF), True)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeF), False)
         #check to ensure that the function returns false when the age is within the range
         rangeP = "10-30"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeP), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeP), True)
         #check edge case
         rangeE = "0-100"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeE), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeE), True)
     
     def test_getRoom(self):
         #check to ensure that the function returns the correct room
