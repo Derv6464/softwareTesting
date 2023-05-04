@@ -44,7 +44,7 @@ class TestStringMethods(unittest.TestCase):
         #check to ensure that the function returns false when the date is a weekend
         self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,29)), False)
         #check to ensure that the function returns true when the date isnt a weekend
-        self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,25)), True)
+        self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,28)), True)
 
     def test_checkNulls(self):
         #check to make sure no fields are null and returns true
@@ -52,8 +52,9 @@ class TestStringMethods(unittest.TestCase):
         #check to make sure no fields are null and returns false if there are nulls
         self.assertEqual(c.checkNulls(self.newBookingNulls), False)
 
-    # def test_checkTimeInAdvance(self):
-    #    self.assertEqual(c.checkTimeInAdvance("13:00", self.newBookingOne[7]), True)
+    #def test_checkTimeInAdvance(self):
+    #    self.assertEqual(c.checkTimeInAdvance(self.newBookingOne[7]),self.newBookingOne[1], True)
+    #    self.assertEqual(c.checkTimeInAdvance(self.newBookingTwo[7]),self.newBookingTwo[1], True)
 
     def test_checkFullMoon(self):
         #check to ensure that the function returns true when the date is a full moon
@@ -63,9 +64,9 @@ class TestStringMethods(unittest.TestCase):
 
     def test_checkMaxOcc(self):
          #check to ensure that the function returns true when the room is not at max capacity
-         self.assertEqual(c.maxOcc(self.TestRoom, 4), True)
+         self.assertEqual(c.maxOcc(self.TestRoom, 6), True)
          #check to ensure that the function returns false when the room is at max capacity
-         self.assertEqual(c.maxOcc(self.TestRoom, 8), False)
+         self.assertEqual(c.maxOcc(self.TestRoom, 7), False)
     
     def test_checkAgeRange(self):
         #check to ensure that the function returns true when the age isnt within the range
