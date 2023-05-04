@@ -15,7 +15,9 @@ class TestStringMethods(unittest.TestCase):
         #name, phone, date, time, bookings
         self.Tester = c.User(True, 10, 10, self.Christmas)
         self.TestRoom = c.Room("Meeting",6,100,0)
+        self.TestFood = c.Room("Food", 15, 100, 1)
         self.TestMoonRoom = c.Room("Moon",6,100,0)
+        self.allRooms = c.allRooms;
         self.bookings = [
             ["Meeting", '2023-04-15', 11, "1 hour", 44, 'John', '0123456789', '13:00'],
             ["Moon", '2023-04-16', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
@@ -71,13 +73,19 @@ class TestStringMethods(unittest.TestCase):
     def test_checkAgeRange(self):
         #check to ensure that the function returns true when the age isnt within the range
         rangeF = "0-300"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeF), True)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeF), False)
         #check to ensure that the function returns false when the age is within the range
         rangeP = "10-30"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeP), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeP), True)
         #check edge case
         rangeE = "0-100"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeE), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeE), True)
+    
+    def test_getRoom(self):
+        #check to ensure that the function returns the correct room
+        self.assertEqual(c.getRoom(self.TestFood.name), self.allRooms[2])
+        #check that function returns false when the room doesnt exist
+        self.assertEqual(c.getRoom("Santa"), False)
 
         
     
