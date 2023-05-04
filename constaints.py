@@ -70,7 +70,7 @@ def form2Checks(booking):
     if not userBooked(booking[5], booking[6], booking[1], booking[7], bookings):
         errorMSG += "You already have a booking at this time"
         passes = False
-    if not checkTimeInAdvance(booking[7]):
+    if not checkTimeInAdvance(booking[1],booking[7]):
         errorMSG += "book less than 3 hours in advance"
         passes = False
     return [passes, errorMSG]
@@ -100,12 +100,11 @@ def maxOcc(room, numOfPeople):
     
 def checkDayTimes(currentDate, date):
     useTimes = []
-    print(currentDate.strftime("%H"))
+    currentDate = datetime.datetime.now()
     if date == currentDate.date():
         for i in allTimes:
             if int(currentDate.strftime("%H")) < int(i.split(":")[0]):
                 useTimes.append(i)
-        print(useTimes)
         return useTimes
     else:
         return allTimes
@@ -154,7 +153,9 @@ def addBooking(booking):
     d = open("bookings.csv", 'a')
     for i in range(int(booking[3][0])):
         d.write( "\n")
-        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + (int(booking[3][0])-[i])+"hours" + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6]+","+str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))))
+        lenght = (str((int(str(booking[3][0]))-i))+"hours")
+        time = str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))
+        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
     d.close()
 
     getBookings()
@@ -163,12 +164,9 @@ def addBooking(booking):
 #csv order = Room,Date,Time,Age,Length,userID,bookingRef
 #must be checked after second form is submited
 def userBooked(name, phone, date, time, bookings) :
-    print(name, phone, date, time)
 
     for booking in bookings:
-        print(booking[5], booking[6], booking[1], booking[7])
         if name == booking[5] and phone == booking[6] and date.strftime("%Y-%m-%d") == booking[1] and time == booking[7]:
-            print('NO BOOKING')
             return False
     return True
    
@@ -179,15 +177,17 @@ def checkWeekend(date):
     else:
         return True
     
-def checkTimeInAdvance(bookingTime,date):
+
+def checkTimeInAdvance(date, bookingTime):
     #check this tommorow !!!!!!!
     now = datetime.datetime.now()
-    if date > now:
-        return True
-    if now + datetime.timedelta(hours=3) >= datetime.strftime(bookingTime,"%"):
+    minBookTime = (now + datetime.timedelta(hours=3))
+    bookingTime = datetime.datetime.strptime(bookingTime,'%H:%M')
+    if now.date() == date and minBookTime.hour > bookingTime.hour:
         print("Must book 3 hours in advance")
         return False
-    return True 
+    else:
+        return True
 
 def checkNulls(booking):
     for i in booking:
@@ -202,8 +202,8 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
     print(response.text)
-    if response.status_code!=200:
-        return True
+    #if response.status_code!=200:
+    #    return True
     if response.text == "[]": 
         return True
     else:
