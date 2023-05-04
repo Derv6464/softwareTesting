@@ -30,6 +30,7 @@ class TestStringMethods(unittest.TestCase):
     def test_checkHoliday(self):
         # check to ensure that the function returns false when the date is a holiday
         self.assertEqual(c.checkHoliday(self.Christmas), False)
+        time.sleep(1)
         # check to ensure that the function returns true when the date isn't a holiday
         self.assertEqual(c.checkHoliday(datetime.datetime(2023, 4, 30)), True)
 
@@ -61,6 +62,8 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(c.checkFullMoon(self.TestMoonRoom,self.fullMoon), True)
         #check to ensure that the function returns false when the date isnt a full moon
         self.assertEqual(c.checkFullMoon(self.TestMoonRoom,self.Christmas), False)
+        #If the room in question is not the moon room this function should always return true
+        self.assertEqual(c.checkFullMoon(self.TestRoom,self.Christmas),True)
 
     def test_checkMaxOcc(self):
          #check to ensure that the function returns true when the room is not at max capacity

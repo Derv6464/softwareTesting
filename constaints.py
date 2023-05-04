@@ -214,8 +214,8 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
     print(response.text)
-    if response.status_code!=200:
-        return True
+    #if response.status_code!=200:
+    #    return True
     if response.text == "[]": 
         return True
     else:
