@@ -7,7 +7,7 @@ url = "https://holidays.abstractapi.com/v1/"
 api_key = "f9eb73a590b245259d9ecf7b8717445b"
 
 
-
+moonAPI = "https://api.sunrise-sunset.org/json."
 #csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
 
@@ -31,7 +31,7 @@ class Room:
 
 allTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
 allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
-allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 20, 46, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 64, 18), Room("Seniors", 65, 100, 65), Room("All Ages", 160, 100, 0)]
+allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 18, 65, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 65, 18), Room("Seniors", 65, 117, 65), Room("All Ages", 160, 117, 0)]
 
 class User:
     def __init__(self, booking, id, size, date):
@@ -53,7 +53,7 @@ def form1Checks(booking):
         errorMSG += "leave any fields blank, "
         passes = False
     if not ageRange(booking[0], booking[4]):
-        errorMSG += "book this room with this age range"
+        errorMSG += "book with this age range"
         passes = False
     if not maxOcc(booking[0], int(booking[2])):
         errorMSG += "have that many people in this room"
@@ -87,9 +87,9 @@ def ageRange(room, age):
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
     if (minAgeIn >= room.minAge and maxAgeIn <= room.maxAge):
-        return False
-    else:
         return True
+    else:
+        return False
 
 
 def maxOcc(room, numOfPeople):
@@ -183,20 +183,17 @@ def checkMax(people):
     
 def checkWeekend(date):
     if date.weekday() > 4:
-        print("Cannot book on weekend")
+        print("Cannot book on the weekend")
         return False
     else:
         return True
     
+
 def checkTimeInAdvance(date, bookingTime):
     #check this tommorow !!!!!!!
     now = datetime.datetime.now()
     minBookTime = (now + datetime.timedelta(hours=3))
     bookingTime = datetime.datetime.strptime(bookingTime,'%H:%M')
-    print(bookingTime.hour)
-    print(minBookTime.hour)
-    print(type(date))
-    print(date)
     if now.date() == date and minBookTime.hour > bookingTime.hour:
         print("Must book 3 hours in advance")
         return False
@@ -216,7 +213,9 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": api_key, "country": country, "year": year, "month": month, "day": day})
     print(response.text)
-    if response.text == "[]" or response.text == '{"error":{"message":"You have exceeded the requests per second allowed by your current plan. Visit the Abstract dashboard to upgrade for a higher limit.","code":"too_many_requests","details":null}}': 
+    #if response.status_code!=200:
+    #    return True
+    if response.text == "[]": 
         return True
     else:
         return False

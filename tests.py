@@ -15,7 +15,9 @@ class TestStringMethods(unittest.TestCase):
         #name, phone, date, time, bookings
         self.Tester = c.User(True, 10, 10, self.Christmas)
         self.TestRoom = c.Room("Meeting",6,100,0)
+        self.TestFood = c.Room("Food", 15, 100, 1)
         self.TestMoonRoom = c.Room("Moon",6,100,0)
+        self.allRooms = c.allRooms;
         self.bookings = [
             ["Meeting", '2023-04-15', 11, "1 hour", 44, 'John', '0123456789', '13:00'],
             ["Moon", '2023-04-16', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
@@ -30,6 +32,7 @@ class TestStringMethods(unittest.TestCase):
     def test_checkHoliday(self):
         # check to ensure that the function returns false when the date is a holiday
         self.assertEqual(c.checkHoliday(self.Christmas), False)
+        time.sleep(1)
         # check to ensure that the function returns true when the date isn't a holiday
         self.assertEqual(c.checkHoliday(datetime.datetime(2023, 4, 30)), True)
 
@@ -44,7 +47,7 @@ class TestStringMethods(unittest.TestCase):
         #check to ensure that the function returns false when the date is a weekend
         self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,29)), False)
         #check to ensure that the function returns true when the date isnt a weekend
-        self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,25)), True)
+        self.assertEqual(c.checkWeekend(datetime.datetime(2023,4,28)), True)
 
     def test_checkNulls(self):
         #check to make sure no fields are null and returns true
@@ -52,31 +55,40 @@ class TestStringMethods(unittest.TestCase):
         #check to make sure no fields are null and returns false if there are nulls
         self.assertEqual(c.checkNulls(self.newBookingNulls), False)
 
-    # def test_checkTimeInAdvance(self):
-    #    self.assertEqual(c.checkTimeInAdvance("13:00", self.newBookingOne[7]), True)
+    #def test_checkTimeInAdvance(self):
+    #    self.assertEqual(c.checkTimeInAdvance(self.newBookingOne[7]),self.newBookingOne[1], True)
+    #    self.assertEqual(c.checkTimeInAdvance(self.newBookingTwo[7]),self.newBookingTwo[1], True)
 
     def test_checkFullMoon(self):
         #check to ensure that the function returns true when the date is a full moon
         self.assertEqual(c.checkFullMoon(self.TestMoonRoom,self.fullMoon), True)
         #check to ensure that the function returns false when the date isnt a full moon
         self.assertEqual(c.checkFullMoon(self.TestMoonRoom,self.Christmas), False)
+        #If the room in question is not the moon room this function should always return true
+        self.assertEqual(c.checkFullMoon(self.TestRoom,self.Christmas),True)
 
     def test_checkMaxOcc(self):
          #check to ensure that the function returns true when the room is not at max capacity
-         self.assertEqual(c.maxOcc(self.TestRoom, 4), True)
+         self.assertEqual(c.maxOcc(self.TestRoom, 6), True)
          #check to ensure that the function returns false when the room is at max capacity
-         self.assertEqual(c.maxOcc(self.TestRoom, 8), False)
+         self.assertEqual(c.maxOcc(self.TestRoom, 7), False)
     
     def test_checkAgeRange(self):
         #check to ensure that the function returns true when the age isnt within the range
         rangeF = "0-300"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeF), True)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeF), False)
         #check to ensure that the function returns false when the age is within the range
         rangeP = "10-30"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeP), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeP), True)
         #check edge case
         rangeE = "0-100"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeE), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeE), True)
+    
+    def test_getRoom(self):
+        #check to ensure that the function returns the correct room
+        self.assertEqual(c.getRoom(self.TestFood.name), self.allRooms[2])
+        #check that function returns false when the room doesnt exist
+        self.assertEqual(c.getRoom("Santa"), False)
 
         
     
