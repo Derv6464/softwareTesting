@@ -24,14 +24,12 @@ def onSubmit():
     numOfPeople = request.form['numOfPpl']
     length = request.form['length']
     #do booking checks 
-    print(date)
     date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
     room = c.getRoom(room)
     tempBooking = [room, date, numOfPeople, length, age, name, phone]
     formChecks = c.form1Checks(tempBooking)
     if formChecks[0]:
         c.booking = tempBooking
-        print(booking)
         tempBooking = []
         times =[]
         times = c.getAvabileTimes(date, room,length, c.getBookings())
@@ -52,12 +50,9 @@ def onTimeSubmit():
         
     temp2Booking = c.booking
     temp2Booking.append(time)
-    print(temp2Booking)
     formChecks = c.form2Checks(temp2Booking)
     if formChecks[0]:
         c.booking.append(time)
-        print("testing")
-        print(c.booking)
         temp2Booking = []
         c.addBooking(c.booking)
         return render_template('confirm.html', data=c.booking)
