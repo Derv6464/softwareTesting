@@ -31,7 +31,7 @@ class Room:
 
 allTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
 allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
-allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 20, 46, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 64, 18), Room("Seniors", 65, 100, 65), Room("All Ages", 160, 100, 0)]
+allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 18, 65, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 65, 18), Room("Seniors", 65, 117, 65), Room("All Ages", 160, 117, 0)]
 
 class User:
     def __init__(self, booking, id, size, date):
@@ -53,7 +53,7 @@ def form1Checks(booking):
         errorMSG += "leave any fields blank, "
         passes = False
     if not ageRange(booking[0], booking[4]):
-        errorMSG += "book this room with this age range"
+        errorMSG += "book with this age range"
         passes = False
     if not maxOcc(booking[0], int(booking[2])):
         errorMSG += "have that many people in this room"
@@ -87,9 +87,9 @@ def ageRange(room, age):
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
     if (minAgeIn >= room.minAge and maxAgeIn <= room.maxAge):
-        return False
-    else:
         return True
+    else:
+        return False
 
 
 def maxOcc(room, numOfPeople):
