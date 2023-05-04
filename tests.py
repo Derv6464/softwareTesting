@@ -34,9 +34,9 @@ class TestStringMethods(unittest.TestCase):
     def test_checkHoliday(self):
         # check to ensure that the function returns false when the date is a holiday
         self.assertEqual(c.checkHoliday(self.Christmas), False)
-        time.sleep(1)
+        time.sleep(5)
         # check to ensure that the function returns true when the date isn't a holiday
-        self.assertEqual(c.checkHoliday(datetime.datetime(2023, 4, 30)), True)
+        self.assertEqual(c.checkHoliday(datetime.datetime(2023, 5, 5)), True)
 
     def test_userBooked(self):
         #check to ensure that the function returns False when the user already has a booking

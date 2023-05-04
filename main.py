@@ -1,11 +1,14 @@
 import datetime
 import constaints as c
+import os
+from dotenv import load_dotenv
 from flask import Flask, request, render_template, flash
 
 #csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'you-will-never-guess'
+load_dotenv()
+app.config['SECRET_KEY'] = os.getenv('FLASK')
 data = []
 booking = []
 
