@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 import datetime
 import time
 import constaints as c
@@ -17,7 +18,8 @@ class TestStringMethods(unittest.TestCase):
         self.TestRoom = c.Room("Meeting",6,100,0)
         self.TestFood = c.Room("Food", 15, 100, 1)
         self.TestMoonRoom = c.Room("Moon",6,100,0)
-        self.allRooms = c.allRooms;
+        self.allRooms = c.allRooms
+        self.allTimes = c.allTimes
         self.bookings = [
             ["Meeting", '2023-04-15', 11, "1 hour", 44, 'John', '0123456789', '13:00'],
             ["Moon", '2023-04-16', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
@@ -90,7 +92,11 @@ class TestStringMethods(unittest.TestCase):
         #check that function returns false when the room doesnt exist
         self.assertEqual(c.getRoom("Santa"), False)
 
-        
+    def test_checkDayTimes(self):
+        #check to ensure that the function returns times after current time when the time is within the day
+       # self.assertEqual(c.checkDayTimes(datetime.datetime(2023,7,15, 13, 0,0,0), datetime.datetime(2023,7,15,13,0,0,0)), ["13:00", "14:00", "15:00", "16:00", "17:00", "18:00"])
+        #check to make sure all times are returned if the booking is made one day in advance 
+        self.assertEqual(c.checkDayTimes(datetime.datetime(2023,7,15), datetime.datetime(2023,7,17)), self.allTimes)
     
        
 
