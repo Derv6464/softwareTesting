@@ -36,6 +36,10 @@ jobs:
 
     - name: Test with unittest
       run: python3 -u -m unittest tests.py
+      env: 
+        HOLIDAY: ${{secrets.HOLIDAY_API}}
+        FLASK: ${{secrets.FLASK}}
+      
       
       
         
