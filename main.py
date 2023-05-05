@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 data = []
 booking = []
-
 @app.route('/')
 def home():
     c.booking = []
