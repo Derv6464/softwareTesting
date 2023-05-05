@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from fullmoon import IsFullMoon
 import requests
 url = "https://holidays.abstractapi.com/v1/"
-api_key = "f9eb73a590b245259d9ecf7b8717445b"
 moonAPI = "https://api.sunrise-sunset.org/json."
 #csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
@@ -98,7 +97,7 @@ def maxOcc(room, numOfPeople):
     
 def checkDayTimes(currentDate, date):
     useTimes = []
-    currentDate = datetime.datetime.now()
+    #currentDate = datetime.datetime.now()
     if date == currentDate.date():
         for i in allTimes:
             if int(currentDate.strftime("%H")) < int(i.split(":")[0]):
