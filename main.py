@@ -11,7 +11,6 @@ load_dotenv()
 app.config['SECRET_KEY'] = os.getenv('FLASK')
 data = []
 booking = []
-
 @app.route('/')
 def home():
     c.booking = []
