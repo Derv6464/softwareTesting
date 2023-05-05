@@ -25,7 +25,7 @@ class TestStringMethods(unittest.TestCase):
         ]
         self.newBookingOne = ["Meeting", '2023-04-16', 100, "1 hour", 40, 'Jane', '9876543210', '14:00']
         self.newBookingTwo = ["Meeting", '2023-04-17', 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
-        self.newBookingThree = ["Meeting", '2023-05-17', 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingThree = ["Meeting", '2023-06-17', 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
         self.newBookingNulls = ["", '2023-04-17', 25, "1 hour", 40, 'Bob', '9876543210', '14:00']
         self.newBookingMax = ["Food", '2023-04-17', 60, "1 hour", 40, 'Sarah', '9876543210', '14:00']
     
@@ -58,7 +58,11 @@ class TestStringMethods(unittest.TestCase):
 
     def test_checkTimeInAdvance(self):
         #Because of the value of this depending heavily on the current time, the tests must also use the current time
+        #This is an edge case that should just fail
         self.assertEqual(c.checkTimeInAdvance((datetime.datetime.now()).strftime('%Y-%m-%d'),(datetime.datetime.now() + datetime.timedelta(hours = 2)).strftime("%H:%M")), False)
+        #This is an edge case that should just pass
+        self.assertEqual(c.checkTimeInAdvance((datetime.datetime.now()).strftime('%Y-%m-%d'),(datetime.datetime.now() + datetime.timedelta(hours = 4)).strftime("%H:%M")), True)
+        #This is a different day and should pass easily
         self.assertEqual(c.checkTimeInAdvance(self.newBookingThree[1],self.newBookingThree[7]), True)
 
     def test_checkFullMoon(self):
