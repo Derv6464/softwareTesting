@@ -24,29 +24,16 @@ class TestStringMethods(unittest.TestCase):
         self.allRooms = c.allRooms
         self.allTimes = c.allTimes
         self.bookings = [
-<<<<<<< HEAD
-            ["Meeting", '2023-04-15', 11, "1 hours", 44, 'John', '0123456789', '13:00'],
-            ["Moon", '2023-04-17', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
-            ["Meeting", '2023-04-16',22, "1 hours", 60, 'Bob', '0123456789', '15:00']
-        ]
-        
-        self.newBookingForm = ["Meeting", '2023-04-17', 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
-        self.newBookingOne = ["Meeting", '2023-04-16', 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
-        self.newBookingTwo = ["Meeting", '2023-04-17', 60, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
-        self.newBookingThree = ["Meeting", '2023-06-17', 60, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
-        self.newBookingNulls = ["", '2023-04-17', 25, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
-        self.newBookingMax = ["Food", '2023-04-17', 60, "1 hours", "20-40", 'Sarah', '9876543210', '14:00']
-=======
             ["Meeting", date(2023,4,15), 11, "1 hour", 44, 'John', '0123456789', '13:00'],
             ["Moon", date(2023,4,16), 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
             ["Meeting", date(2023,4,17),22, "1 hour", 60, 'Bob', '0123456789', '15:00']
         ]
+        self.newBookingForm = ["Meeting", date(2023,4,17), 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
         self.newBookingOne = ["Meeting", date(2023,4,16), 100, "1 hour", 40, 'Jane', '9876543210', '14:00']
         self.newBookingTwo = ["Meeting", date(2023,4,17), 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
         self.newBookingThree = ["Meeting", date(2023,6,17), 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
         self.newBookingNulls = ["", date(2023,4,17), 25, "1 hour", 40, 'Bob', '9876543210', '14:00']
         self.newBookingMax = ["Food", date(2023,4,17), 60, "1 hour", 40, 'Sarah', '9876543210', '14:00']
->>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
     
     #api testing
     """def test_checkHoliday(self):
@@ -58,7 +45,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_userBooked(self):
         #check to ensure that the function returns False when the user already has a booking
-        self.assertEqual(c.userBooked(self.newBookingForm[5], self.newBookingForm[6], datetime.datetime.strptime(self.newBookingForm[1], "%Y-%m-%d"), self.newBookingOne[7], self.bookings),False)
+        self.assertEqual(c.userBooked(self.newBookingForm[5], self.newBookingForm[6], datetime.strptime(self.newBookingForm[1], "%Y-%m-%d"), self.newBookingOne[7], self.bookings),False)
         #check to ensure that the function returns true when the user doesnt already have a booking
         self.assertEqual(c.userBooked(self.newBookingTwo[5], self.newBookingTwo[6], datetime.strptime(self.newBookingTwo[1], "%Y-%m-%d"), self.newBookingTwo[7], self.bookings),True)
  
