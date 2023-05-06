@@ -34,10 +34,15 @@ jobs:
         pip install fullmoon
         pip install requests
         pip install python-dotenv
+        pip install pylint
       
         
     - name: Test with unittest
       run: python3 -u -m unittest tests.py
+      
+    - name: Analysing the code with pylint
+      run: |
+        pylint $(git ls-files '*.py')
       
 
       
