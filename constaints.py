@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from fullmoon import IsFullMoon
 import requests
 url = "https://holidays.abstractapi.com/v1/"
-api_key = "f9eb73a590b245259d9ecf7b8717445b"
 moonAPI = "https://api.sunrise-sunset.org/json."
 #csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
@@ -177,10 +176,11 @@ def checkWeekend(date):
 
 def checkTimeInAdvance(date, bookingTime):
     #check this tommorow !!!!!!!
+    date = datetime.datetime.strptime(date,'%Y-%m-%d')
     now = datetime.datetime.now()
     minBookTime = (now + datetime.timedelta(hours=3))
     bookingTime = datetime.datetime.strptime(bookingTime,'%H:%M')
-    if now.date() == date and minBookTime.hour > bookingTime.hour:
+    if now.date() == date.date() and minBookTime.time() > bookingTime.time():
         print("Must book 3 hours in advance")
         return False
     else:
