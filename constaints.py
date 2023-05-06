@@ -116,7 +116,12 @@ def getAvabileTimes(date, room, length ,bookings):
                 daysBookings.append(i)
     
     if not daysBookings:
-        return usableTimes
+        if meetLength == 1:
+            return usableTimes
+        if meetLength == 2:
+            return usableTimes[:9]
+        if meetLength == 3:
+            return usableTimes[:8]
     avaTimes = []
     addTime = True
 
@@ -129,7 +134,7 @@ def getAvabileTimes(date, room, length ,bookings):
                 avaTimes.append(i)
             addTime = True
     elif meetLength == 2:
-            for i in usableTimes:
+            for i in usableTimes[:9]:
                 for j in daysBookings:
                     if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')):
                         addTime = False
@@ -137,7 +142,7 @@ def getAvabileTimes(date, room, length ,bookings):
                     avaTimes.append(i)
                 addTime = True
     elif meetLength == 3:
-        for i in usableTimes:
+        for i in usableTimes[:8]:
             for j in daysBookings:
                 if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')) or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=2)).strftime('%H:%M')):
                     addTime = False
