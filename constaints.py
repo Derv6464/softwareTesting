@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+from datetime import timedelta
 import csv
 import os
 from dotenv import load_dotenv
@@ -27,7 +28,7 @@ class Room:
         self.minAge = minAge
 
 allTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
-allDates = [(datetime.datetime.today() + datetime.timedelta(days=x)).strftime("%x") for x in range(7)]
+allDates = [(datetime.today() + timedelta(days=x)).strftime("%x") for x in range(7)]
 allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 18, 65, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 65, 18), Room("Seniors", 65, 117, 65), Room("All Ages", 160, 117, 0)]
 
 class User:
@@ -74,12 +75,14 @@ def form2Checks(booking):
     
 
 def getRoom(roomName):
+    #used in main.py
     for room in allRooms:
         if room.name == roomName:
             return room
     return False
 
 def ageRange(room, age):
+    #used in form1 checks
     minAgeIn, maxAgeIn = age.split("-")
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
@@ -90,12 +93,15 @@ def ageRange(room, age):
 
 
 def maxOcc(room, numOfPeople):
+    #used in form1 checks
     if (numOfPeople > room.maxO):
         return False
     else:
         return True
     
 def checkDayTimes(currentDate, date):
+    #used in getAvaibleTimes
+    #date:datetime object, currentDate:datetime object, returns list of dates:str
     useTimes = []
     if date == currentDate.date():
         for i in allTimes:
@@ -106,9 +112,12 @@ def checkDayTimes(currentDate, date):
         return allTimes
         
 def getAvabileTimes(date, room, length ,bookings):
+    #used in main.py
     meetLength =int(length.split()[0])
-    usableTimes = checkDayTimes(datetime.datetime.now(), date)
-    #make lists of all booking on that day and room
+    usableTimes = checkDayTimes(datetime.now(), date)
+    #usableTimes:list[str]
+
+    #make lists of all booking for that day and room
     daysBookings = []
     for i in bookings:
         if i:
@@ -122,9 +131,9 @@ def getAvabileTimes(date, room, length ,bookings):
             return usableTimes[:9]
         if meetLength == 3:
             return usableTimes[:8]
+        
     avaTimes = []
     addTime = True
-
     if meetLength ==1 :
         for i in usableTimes:
             for j in daysBookings:
@@ -136,7 +145,7 @@ def getAvabileTimes(date, room, length ,bookings):
     elif meetLength == 2:
             for i in usableTimes[:9]:
                 for j in daysBookings:
-                    if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')):
+                    if j[7] == i or j[7] == str((datetime.strptime(i,'%H:%M') + timedelta(hours=1)).strftime('%H:%M')):
                         addTime = False
                 if addTime:
                     avaTimes.append(i)
@@ -144,34 +153,35 @@ def getAvabileTimes(date, room, length ,bookings):
     elif meetLength == 3:
         for i in usableTimes[:8]:
             for j in daysBookings:
-                if j[7] == i or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=1)).strftime('%H:%M')) or j[7] == str((datetime.datetime.strptime(i,'%H:%M') + datetime.timedelta(hours=2)).strftime('%H:%M')):
+                if j[7] == i or j[7] == str((datetime.strptime(i,'%H:%M') + timedelta(hours=1)).strftime('%H:%M')) or j[7] == str((datetime.strptime(i,'%H:%M') + timedelta(hours=2)).strftime('%H:%M')):
                     addTime = False
             if addTime:
                 avaTimes.append(i)
     return avaTimes
 
 def addBooking(booking):
+    #date:datetime object, time:string
     d = open("bookings.csv", 'a')
     for i in range(int(booking[3][0])):
         d.write( "\n")
         lenght = (str((int(str(booking[3][0]))-i))+"hours")
-        time = str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))
+        time = str((datetime.strptime(booking[7],'%H:%M') + timedelta(hours=i)).strftime('%H:%M'))
         d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
     d.close()
 
     getBookings()
    
-#tempBooking = [room, date, numOfPeople, length, age,time]
-#csv order = Room,Date,Time,Age,Length,userID,bookingRef
-#must be checked after second form is submited
 def userBooked(name, phone, date, time, bookings) :
-
+    #used in form3 checks
+    #date:datetime object, time:string
     for booking in bookings:
         if name == booking[5] and phone == booking[6] and date.strftime("%Y-%m-%d") == booking[1] and time == booking[7]:
             return False
     return True
    
 def checkWeekend(date):
+    #used in form1 checks
+    #date:datetime object
     if date.weekday() > 4:
         print("Cannot book on the weekend")
         return False
@@ -180,11 +190,12 @@ def checkWeekend(date):
     
 
 def checkTimeInAdvance(date, bookingTime):
-    #check this tommorow !!!!!!!
-    date = datetime.datetime.strptime(date,'%Y-%m-%d')
-    now = datetime.datetime.now()
-    minBookTime = (now + datetime.timedelta(hours=3))
-    bookingTime = datetime.datetime.strptime(bookingTime,'%H:%M')
+    #used in form2 checks
+    #date:datetime object, time:string
+    date = datetime.strptime(date,'%Y-%m-%d')
+    now = datetime.now()
+    minBookTime = (now + timedelta(hours=3))
+    bookingTime = datetime.strptime(bookingTime,'%H:%M')
     if now.date() == date.date() and minBookTime.time() > bookingTime.time():
         print("Must book 3 hours in advance")
         return False
@@ -198,6 +209,8 @@ def checkNulls(booking):
     return True
     
 def checkHoliday(date):
+    #used in form1 checks
+    #date:datetime object
     load_dotenv()
     country = "IE"
     day = date.day
@@ -213,6 +226,8 @@ def checkHoliday(date):
         return False
     
 def checkFullMoon(room,date):
+    #used in form1 checks
+    #date:datetime object 
     if room.name == "Moon":
         i = IsFullMoon()
         date = date.strftime("%Y-%m-%d")
