@@ -2,6 +2,7 @@ import csv
 import unittest
 from unittest import mock
 import datetime
+
 import shutil
 import time
 import constaints as c
@@ -36,12 +37,12 @@ class TestStringMethods(unittest.TestCase):
         self.newBookingMax = ["Food", '2023-04-17', 60, "1 hours", "20-40", 'Sarah', '9876543210', '14:00']
     
     #api testing
-    """def test_checkHoliday(self):
+    def test_checkHoliday(self):
         # check to ensure that the function returns false when the date is a holiday
         self.assertEqual(c.checkHoliday(self.Christmas), False)
         time.sleep(5)
         # check to ensure that the function returns true when the date isn't a holiday
-        self.assertEqual(c.checkHoliday(self.newBookingForm[1]), True)"""
+        self.assertEqual(c.checkHoliday(self.newBookingOne[1]), True)
 
     def test_userBooked(self):
         #check to ensure that the function returns False when the user already has a booking
@@ -65,9 +66,10 @@ class TestStringMethods(unittest.TestCase):
     def test_checkTimeInAdvance(self):
         #Because of the value of this depending heavily on the current time, the tests must also use the current time
         #This is an edge case that should just fail
-        self.assertEqual(c.checkTimeInAdvance((datetime.datetime.now()).strftime('%Y-%m-%d'),(datetime.datetime.now() + datetime.timedelta(hours = 2)).strftime("%H:%M")), False)
+        now = datetime.datetime.now()
+        self.assertEqual(c.checkTimeInAdvance((now + datetime.timedelta(hours = 2)).strftime('%Y-%m-%d'),(now + datetime.timedelta(hours = 2)).strftime("%H:%M")), False)
         #This is an edge case that should just pass
-        self.assertEqual(c.checkTimeInAdvance((datetime.datetime.now()).strftime('%Y-%m-%d'),(datetime.datetime.now() + datetime.timedelta(hours = 4)).strftime("%H:%M")), True)
+        self.assertEqual(c.checkTimeInAdvance((now + datetime.timedelta(hours = 4)).strftime('%Y-%m-%d'),(now + datetime.timedelta(hours = 4)).strftime("%H:%M")), True)
         #This is a different day and should pass easily
         self.assertEqual(c.checkTimeInAdvance(self.newBookingThree[1],self.newBookingThree[7]), True)
 
@@ -138,7 +140,7 @@ class TestStringMethods(unittest.TestCase):
     def test_form1(self):
         time.sleep(5)
         self.assertEqual((c.form1Checks(self.newBookingForm))[0],True)
-        #self.assertEqual((c.form1Checks(self.newBookingTwo))[0],False)
+        self.assertEqual((c.form1Checks(self.newBookingTwo))[0],False)
 
 
     def test_getAvailableTimes(self):

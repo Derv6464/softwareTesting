@@ -43,9 +43,9 @@ def form1Checks(booking):
     if not checkWeekend(booking[1]):
         errorMSG += "book on weekends, "
         passes = False
-    """if not checkHoliday(booking[1]):
+    if not checkHoliday(booking[1]):
         errorMSG += "book on holidays, "
-        passes = False"""
+        passes = False
     if not checkNulls(booking):
         errorMSG += "leave any fields blank, "
         passes = False
@@ -195,7 +195,7 @@ def checkTimeInAdvance(date, bookingTime):
     now = datetime.datetime.now()
     minBookTime = (now + datetime.timedelta(hours=3))
     bookingTime = datetime.datetime.strptime(bookingTime,'%H:%M')
-    if now.date() == date.date() and minBookTime.time() > bookingTime.time():
+    if minBookTime.date() == date.date() and minBookTime.time() > bookingTime.time():
         print("Must book 3 hours in advance")
         return False
     else:
