@@ -2,6 +2,7 @@ import csv
 import unittest
 from unittest import mock
 import datetime
+import shutil
 import time
 import constaints as c
 from selenium import webdriver
@@ -23,11 +24,11 @@ class TestStringMethods(unittest.TestCase):
         self.allTimes = c.allTimes
         self.bookings = [
             ["Meeting", '2023-04-15', 11, "1 hour", 44, 'John', '0123456789', '13:00'],
-            ["Moon", '2023-04-16', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
-            ["Meeting", '2023-04-17',22, "1 hour", 60, 'Bob', '0123456789', '15:00']
+            ["Moon", '2023-04-17', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
+            ["Meeting", '2023-04-16',22, "1 hour", 60, 'Bob', '0123456789', '15:00']
         ]
         self.newBookingOne = ["Meeting", '2023-04-17', 100, "1 hour", "20-40", 'Jane', '9876543210', '14:00']
-        self.newBookingTwo = ["Meeting", '2023-04-17', 60, "1 hour", "20-40", 'Bob', '9876543210', '14:00']
+        self.newBookingTwo = ["Meeting", '2023-04-16', 60, "1 hour", "20-40", 'Bob', '9876543210', '14:00']
         self.newBookingThree = ["Meeting", '2023-06-17', 60, "1 hour", "20-40", 'Bob', '9876543210', '14:00']
         self.newBookingNulls = ["", '2023-04-17', 25, "1 hour", "20-40", 'Bob', '9876543210', '14:00']
         self.newBookingMax = ["Food", '2023-04-17', 60, "1 hour", "20-40", 'Sarah', '9876543210', '14:00']
@@ -49,9 +50,9 @@ class TestStringMethods(unittest.TestCase):
 
     def test_checkWeekend(self):
         #check to ensure that the function returns false when the date is a weekend
-        self.assertEqual(c.checkWeekend(self.newBookingOne[1]), False)
+        self.assertEqual(c.checkWeekend(self.newBookingTwo[1]), False)
         #check to ensure that the function returns true when the date isnt a weekend
-        self.assertEqual(c.checkWeekend(self.newBookingTwo[1]), True)
+        self.assertEqual(c.checkWeekend(self.newBookingOne[1]), True)
 
     def test_checkNulls(self):
         #check to make sure no fields are null and returns true
@@ -106,6 +107,14 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(c.checkDayTimes(datetime.datetime(2023,7,15), datetime.datetime(2023,7,17)), self.allTimes)
     
     def test_addBooking(self):
+        # Set the path to the CSV file
+        realFile = "bookings.csv"
+
+        # Set the path to the new copy of the CSV file
+        backupFile = "backup.csv"
+
+        # Copy the CSV file
+        shutil.copy(realFile, backupFile)
         c.addBooking(self.newBookingOne)
         with open('bookings.csv', mode='r') as file:
             # Create a reader object
@@ -117,6 +126,7 @@ class TestStringMethods(unittest.TestCase):
                 # Return the last row
                 last_row = row
                 break
+        shutil.copy(backupFile, realFile)
         test = self.newBookingOne
         for i in range(len(test)):
             test[i] = str(test[i])
@@ -126,7 +136,10 @@ class TestStringMethods(unittest.TestCase):
     def test_form1(self):
         self.assertEqual((c.form1Checks(self.newBookingOne))[0],True)
         self.assertEqual((c.form1Checks(self.newBookingTwo))[0],False)
-       
+
+
+
+
 
     #testing csv read/write
     
