@@ -51,27 +51,27 @@ def form1Checks(booking):
         errorMSG += "leave any fields blank, "
         passes = False
     if not ageRange(booking[0], booking[4]):
-        errorMSG += "book with this age range"
+        errorMSG += "book with this age range, "
         passes = False
     if not maxOcc(booking[0], int(booking[2])):
-        errorMSG += "have that many people in this room"
+        errorMSG += "have that many people in this room, "
         passes = False
     if not checkFullMoon(booking[0],booking[1]):
-        errorMSG += "book not on a full moon"
+        errorMSG += "book not on a full moon, "
         passes = False
     
     return [passes,errorMSG[:-2]]
 
 def form2Checks(booking):
-    errorMSG = "You can't: "
+    errorMSG = ""
     passes = True
     if not userBooked(booking[5], booking[6], booking[1], booking[7], bookings):
-        errorMSG += "You already have a booking at this time"
+        errorMSG += "You already have a booking at this time, "
         passes = False
     if not checkTimeInAdvance(booking[1],booking[7]):
-        errorMSG += "book less than 3 hours in advance"
+        errorMSG += "You can't book less than 3 hours in advance, "
         passes = False
-    return [passes, errorMSG]
+    return [passes, errorMSG[:2]]
     
 
 def getRoom(roomName):
@@ -101,6 +101,7 @@ def maxOcc(room, numOfPeople):
     
 def checkDayTimes(currentDate, date):
     #used in getAvaibleTimes
+    #this checks the time of day, and returns the avaible times after that 
     #date:datetime object, currentDate:datetime object, returns list of dates:str
     useTimes = []
     if date == currentDate.date():
@@ -113,6 +114,7 @@ def checkDayTimes(currentDate, date):
         
 def getAvabileTimes(date, room, length ,bookings):
     #used in main.py
+    #compares times from checkDayTimes and the bookings already made
     meetLength =int(length.split()[0])
     usableTimes = checkDayTimes(datetime.now(), date)
     #usableTimes:list[str]
@@ -218,8 +220,6 @@ def checkHoliday(date):
     year = date.year
     response = requests.get(url, params={"api_key": os.getenv("HOLIDAY_API"), "country": country, "year": year, "month": month, "day": day})
     print(response.text)
-    #if response.status_code!=200:
-    #    return True
     if response.text == "[]": 
         return True
     else:
