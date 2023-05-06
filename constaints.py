@@ -1,13 +1,10 @@
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 import csv
 import os
 from dotenv import load_dotenv
 from fullmoon import IsFullMoon
 import requests
 url = "https://holidays.abstractapi.com/v1/"
-moonAPI = "https://api.sunrise-sunset.org/json."
-#csv order = Room,Date,Time,Age,Lenght,userID,bookingRef
 
 def getBookings():
     bookings = []
@@ -28,17 +25,12 @@ class Room:
         self.minAge = minAge
 
 allTimes = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
-allDates = [(datetime.today() + timedelta(days=x)).strftime("%x") for x in range(7)]
-allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 18, 65, 26), Room("Food", 15, 100, 1), Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 65, 18), Room("Seniors", 65, 117, 65), Room("All Ages", 160, 117, 0)]
-
-class User:
-    def __init__(self, booking, id, size, date):
-        self.booking = booking
-        self.id = id
-        self.size = size
-        self.date = date
+allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 18, 65, 26), Room("Food", 15, 100, 1), 
+            Room("Young Kids", 30, 12, 0), Room("Old Kids", 15, 18, 12), Room("Adults", 50, 65, 18),
+            Room("Seniors", 65, 117, 65), Room("All Ages", 160, 117, 0)]
 
 def form1Checks(booking):
+    #used in main.py
     errorMSG = "You can't: "
     passes = True
     if not checkWeekend(booking[1]):
@@ -59,10 +51,10 @@ def form1Checks(booking):
     if not checkFullMoon(booking[0],booking[1]):
         errorMSG += "book not on a full moon, "
         passes = False
-    
     return [passes,errorMSG[:-2]]
 
 def form2Checks(booking):
+    #used in main.py
     errorMSG = ""
     passes = True
     if not userBooked(booking[5], booking[6], booking[1], booking[7], bookings):
@@ -72,7 +64,6 @@ def form2Checks(booking):
         errorMSG += "You can't book less than 3 hours in advance, "
         passes = False
     return [passes, errorMSG[:2]]
-    
 
 def getRoom(roomName):
     #used in main.py
@@ -90,7 +81,6 @@ def ageRange(room, age):
         return True
     else:
         return False
-
 
 def maxOcc(room, numOfPeople):
     #used in form1 checks
@@ -168,9 +158,10 @@ def addBooking(booking):
         d.write( "\n")
         lenght = (str((int(str(booking[3][0]))-i))+"hours")
         time = str((datetime.strptime(booking[7],'%H:%M') + timedelta(hours=i)).strftime('%H:%M'))
-        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
+        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + 
+                str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
     d.close()
-
+    #check this doesnt do anything
     getBookings()
    
 def userBooked(name, phone, date, time, bookings) :
@@ -189,20 +180,23 @@ def checkWeekend(date):
         return False
     else:
         return True
-    
 
-def checkTimeInAdvance(date, bookingTime):
+def checkTimeInAdvance(dateS, bookingTime):
     #used in form2 checks
     #date:datetime object, time:string
-    date = datetime.strptime(date,'%Y-%m-%d')
+    #dateS = datetime.strptime(dateS,'%Y-%m-%d')
     now = datetime.now()
     minBookTime = (now + timedelta(hours=3))
     bookingTime = datetime.strptime(bookingTime,'%H:%M')
-    if now.date() == date.date() and minBookTime.time() > bookingTime.time():
+    print(now.date(), dateS.date())
+    print(minBookTime.time(), bookingTime.time())
+    if now.date() == dateS.date() and minBookTime.time() > bookingTime.time():
         print("Must book 3 hours in advance")
         return False
     else:
         return True
+    
+print(checkTimeInAdvance((datetime.now()),(datetime.now() + timedelta(hours = 4)).strftime("%H:%M")))
 
 def checkNulls(booking):
     for i in booking:
@@ -218,7 +212,8 @@ def checkHoliday(date):
     day = date.day
     month = date.month
     year = date.year
-    response = requests.get(url, params={"api_key": os.getenv("HOLIDAY_API"), "country": country, "year": year, "month": month, "day": day})
+    response = requests.get(url, params={"api_key": os.getenv("HOLIDAY_API"), "country": country, "year": year, 
+                                         "month": month, "day": day})
     print(response.text)
     if response.text == "[]": 
         return True
@@ -234,3 +229,4 @@ def checkFullMoon(room,date):
         return i.set_date_string(date, '%Y-%m-%d').is_full_moon()
     else:
         return True
+    
