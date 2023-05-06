@@ -10,5 +10,6 @@
     "python.testing.unittestEnabled": true,
     "githubPullRequests.ignoredPullRequestBranches": [
         "main"
-    ]
+    ],
+    "C_Cpp.default.compilerPath": ""
 }

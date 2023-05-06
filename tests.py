@@ -102,7 +102,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_checkDayTimes(self):
         #check to ensure that the function returns times after current time when the time is within the day
-        self.assertEqual(c.checkDayTimes(datetime.datetime(2023,7,15,13,0,0), datetime.date(2023,7,15)), ["14:00", "15:00", "16:00", "17:00", "18:00"])
+        self.assertEqual(c.checkDayTimes(datetime.datetime(2023,7,15, 13, 0,0,0), datetime.date(2023,7,15)), ["14:00", "15:00", "16:00", "17:00", "18:00"])
         #check to make sure all times are returned if the booking is made one day in advance 
         self.assertEqual(c.checkDayTimes(datetime.datetime(2023,7,15), datetime.datetime(2023,7,17)), self.allTimes)
     
@@ -138,8 +138,20 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual((c.form1Checks(self.newBookingTwo))[0],False)
 
 
-
-
+    def test_getAvailableTimes(self):
+        #check for one hour with a booking
+        self.assertEqual(c.getAvabileTimes(datetime.date(2023,4,15), self.TestRoom, "1 hour", self.bookings), ["09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00", "18:00"])
+        #check for two hours with a booking
+        self.assertEqual(c.getAvabileTimes(datetime.date(2023,4,15), self.TestRoom, "2 hours", self.bookings), ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"])
+        #check for three hours with a booking
+        self.assertEqual(c.getAvabileTimes(datetime.date(2023,4,15), self.TestRoom, "3 hours", self.bookings), ["09:00", "10:00"])
+        #check for one hour with no booking
+        self.assertEqual(c.getAvabileTimes(datetime.date(2023,4,16), self.TestRoom, "1 hour", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"])
+        #check for two hours with no booking
+        self.assertEqual(c.getAvabileTimes(datetime.date(2023,4,16), self.TestRoom, "2 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"])
+        #check for three hours with no booking
+        self.assertEqual(c.getAvabileTimes(datetime.date(2023,4,16), self.TestRoom, "3 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"])
+    
 
     #testing csv read/write
     
