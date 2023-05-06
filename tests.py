@@ -23,15 +23,15 @@ class TestStringMethods(unittest.TestCase):
         self.allRooms = c.allRooms
         self.allTimes = c.allTimes
         self.bookings = [
-            ["Meeting", '2023-04-15', 11, "1 hour", 44, 'John', '0123456789', '13:00'],
+            ["Meeting", '2023-04-15', 11, "1 hours", 44, 'John', '0123456789', '13:00'],
             ["Moon", '2023-04-17', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
-            ["Meeting", '2023-04-16',22, "1 hour", 60, 'Bob', '0123456789', '15:00']
+            ["Meeting", '2023-04-16',22, "1 hours", 60, 'Bob', '0123456789', '15:00']
         ]
-        self.newBookingOne = ["Meeting", '2023-04-17', 100, "1 hour", "20-40", 'Jane', '9876543210', '14:00']
-        self.newBookingTwo = ["Meeting", '2023-04-16', 60, "1 hour", "20-40", 'Bob', '9876543210', '14:00']
-        self.newBookingThree = ["Meeting", '2023-06-17', 60, "1 hour", "20-40", 'Bob', '9876543210', '14:00']
-        self.newBookingNulls = ["", '2023-04-17', 25, "1 hour", "20-40", 'Bob', '9876543210', '14:00']
-        self.newBookingMax = ["Food", '2023-04-17', 60, "1 hour", "20-40", 'Sarah', '9876543210', '14:00']
+        self.newBookingOne = ["Meeting", '2023-04-17', 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
+        self.newBookingTwo = ["Meeting", '2023-04-16', 60, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
+        self.newBookingThree = ["Meeting", '2023-06-17', 60, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
+        self.newBookingNulls = ["", '2023-04-17', 25, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
+        self.newBookingMax = ["Food", '2023-04-17', 60, "1 hours", "20-40", 'Sarah', '9876543210', '14:00']
     
     #api testing
     def test_checkHoliday(self):

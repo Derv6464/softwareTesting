@@ -156,9 +156,13 @@ def getAvabileTimes(date, room, length ,bookings):
     return avaTimes
 
 def addBooking(booking):
-    with open('bookings.csv', mode='a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(booking)
+    d = open("bookings.csv", 'a')
+    for i in range(int(booking[3][0])):
+        d.write( "\n")
+        lenght = (str((int(str(booking[3][0]))-i))+" hours")
+        time = str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))
+        d.write(str(booking[0]) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
+    d.close()
 
     getBookings()
    
