@@ -43,9 +43,9 @@ def form1Checks(booking):
     if not checkWeekend(booking[1]):
         errorMSG += "book on weekends, "
         passes = False
-    if not checkHoliday(booking[1]):
+    """if not checkHoliday(booking[1]):
         errorMSG += "book on holidays, "
-        passes = False
+        passes = False"""
     if not checkNulls(booking):
         errorMSG += "leave any fields blank, "
         passes = False
@@ -80,17 +80,26 @@ def getRoom(roomName):
     return False
 
 def ageRange(room, age):
+    for r in allRooms:
+        if room == r.name:
+            maxAge = r.maxAge
+            minAge = r.minAge
+            break
     minAgeIn, maxAgeIn = age.split("-")
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
-    if (minAgeIn >= room.minAge and maxAgeIn <= room.maxAge):
+    if (minAgeIn >= minAge and maxAgeIn <= maxAge):
         return True
     else:
         return False
 
 
 def maxOcc(room, numOfPeople):
-    if (numOfPeople > room.maxO):
+    for r in allRooms:
+        if room == r.name:
+            maxO = r.maxO
+            break
+    if (numOfPeople > maxO):
         return False
     else:
         return True
@@ -154,9 +163,9 @@ def addBooking(booking):
     d = open("bookings.csv", 'a')
     for i in range(int(booking[3][0])):
         d.write( "\n")
-        lenght = (str((int(str(booking[3][0]))-i))+"hours")
+        lenght = (str((int(str(booking[3][0]))-i))+" hours")
         time = str((datetime.datetime.strptime(booking[7],'%H:%M') + datetime.timedelta(hours=i)).strftime('%H:%M'))
-        d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
+        d.write(str(booking[0]) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
     d.close()
 
     getBookings()
@@ -172,6 +181,7 @@ def userBooked(name, phone, date, time, bookings) :
     return True
    
 def checkWeekend(date):
+    date = datetime.datetime.strptime(date,'%Y-%m-%d')
     if date.weekday() > 4:
         print("Cannot book on the weekend")
         return False
@@ -199,6 +209,7 @@ def checkNulls(booking):
     
 def checkHoliday(date):
     load_dotenv()
+    date = datetime.datetime.strptime(date,'%Y-%m-%d')
     country = "IE"
     day = date.day
     month = date.month
@@ -213,9 +224,8 @@ def checkHoliday(date):
         return False
     
 def checkFullMoon(room,date):
-    if room.name == "Moon":
+    if room == "Moon":
         i = IsFullMoon()
-        date = date.strftime("%Y-%m-%d")
         return i.set_date_string(date, '%Y-%m-%d').is_full_moon()
     else:
         return True
