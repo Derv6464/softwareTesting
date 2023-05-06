@@ -97,7 +97,6 @@ def maxOcc(room, numOfPeople):
     
 def checkDayTimes(currentDate, date):
     useTimes = []
-    #currentDate = datetime.datetime.now()
     if date == currentDate.date():
         for i in allTimes:
             if int(currentDate.strftime("%H")) < int(i.split(":")[0]):
