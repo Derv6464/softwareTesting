@@ -134,6 +134,7 @@ class TestStringMethods(unittest.TestCase):
 
 
     def test_form1(self):
+        time.sleep(5)
         self.assertEqual((c.form1Checks(self.newBookingOne))[0],True)
         self.assertEqual((c.form1Checks(self.newBookingTwo))[0],False)
 
