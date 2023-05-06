@@ -24,6 +24,7 @@ class TestStringMethods(unittest.TestCase):
         self.allRooms = c.allRooms
         self.allTimes = c.allTimes
         self.bookings = [
+<<<<<<< HEAD
             ["Meeting", '2023-04-15', 11, "1 hours", 44, 'John', '0123456789', '13:00'],
             ["Moon", '2023-04-17', 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
             ["Meeting", '2023-04-16',22, "1 hours", 60, 'Bob', '0123456789', '15:00']
@@ -35,6 +36,17 @@ class TestStringMethods(unittest.TestCase):
         self.newBookingThree = ["Meeting", '2023-06-17', 60, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
         self.newBookingNulls = ["", '2023-04-17', 25, "1 hours", "20-40", 'Bob', '9876543210', '14:00']
         self.newBookingMax = ["Food", '2023-04-17', 60, "1 hours", "20-40", 'Sarah', '9876543210', '14:00']
+=======
+            ["Meeting", date(2023,4,15), 11, "1 hour", 44, 'John', '0123456789', '13:00'],
+            ["Moon", date(2023,4,16), 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
+            ["Meeting", date(2023,4,17),22, "1 hour", 60, 'Bob', '0123456789', '15:00']
+        ]
+        self.newBookingOne = ["Meeting", date(2023,4,16), 100, "1 hour", 40, 'Jane', '9876543210', '14:00']
+        self.newBookingTwo = ["Meeting", date(2023,4,17), 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingThree = ["Meeting", date(2023,6,17), 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingNulls = ["", date(2023,4,17), 25, "1 hour", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingMax = ["Food", date(2023,4,17), 60, "1 hour", 40, 'Sarah', '9876543210', '14:00']
+>>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
     
     #api testing
     """def test_checkHoliday(self):
@@ -66,11 +78,13 @@ class TestStringMethods(unittest.TestCase):
     def test_checkTimeInAdvance(self):
         #Because of the value of this depending heavily on the current time, the tests must also use the current time
         #This is an edge case that should just fail
-        self.assertEqual(c.checkTimeInAdvance(datetime.now(),(datetime.now() + timedelta(hours = 2)).strftime("%H:%M")), False)
+        if datetime.now().hour < 22:
+            self.assertEqual(c.checkTimeInAdvance(datetime.now(),datetime.now().date(),(datetime.now() + timedelta(hours = 2)).strftime("%H:%M")), False)
         #This is an edge case that should just pass
-        self.assertEqual(c.checkTimeInAdvance(datetime.now(),(datetime.now() + timedelta(hours = 4)).strftime("%H:%M")), True)
+        if datetime.now().hour < 20:
+            self.assertEqual(c.checkTimeInAdvance(datetime.now(),datetime.now().date(),(datetime.now() + timedelta(hours = 4)).strftime("%H:%M")), True)
         #This is a different day and should pass easily
-        self.assertEqual(c.checkTimeInAdvance(self.newBookingThree[1],self.newBookingThree[7]), True)
+        self.assertEqual(c.checkTimeInAdvance(datetime.now(),self.newBookingThree[1],self.newBookingThree[7]), True)
 
     def test_checkFullMoon(self):
         #check to ensure that the function returns true when the date is a full moon

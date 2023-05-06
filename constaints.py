@@ -31,6 +31,7 @@ allRooms = [Room("Meeting", 200, 65, 18), Room("Moon", 18, 65, 26), Room("Food",
 
 def form1Checks(booking):
     #used in main.py
+    #booking:Room object, date:datetime object, numOfPeople:int, length:int, age:int, name:str, phone:str
     errorMSG = "You can't: "
     passes = True
     if not checkWeekend(booking[1]):
@@ -55,18 +56,20 @@ def form1Checks(booking):
 
 def form2Checks(booking):
     #used in main.py
+    #booking:Room object, date:datetime object, numOfPeople:int, length:int, age:int, name:str, phone:str, time:str
     errorMSG = ""
     passes = True
     if not userBooked(booking[5], booking[6], booking[1], booking[7], bookings):
         errorMSG += "You already have a booking at this time, "
         passes = False
-    if not checkTimeInAdvance(booking[1],booking[7]):
+    if not checkTimeInAdvance(datetime.now(),booking[1],booking[7]):
         errorMSG += "You can't book less than 3 hours in advance, "
         passes = False
     return [passes, errorMSG[:2]]
 
 def getRoom(roomName):
     #used in main.py
+    #roomName:str
     for room in allRooms:
         if room.name == roomName:
             return room
@@ -74,12 +77,16 @@ def getRoom(roomName):
 
 def ageRange(room, age):
     #used in form1 checks
+<<<<<<< HEAD
 
     for r in allRooms:
         if room == r.name:
             maxAge = r.maxAge
             minAge = r.minAge
             break
+=======
+    #room:Room object, age:str
+>>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
     minAgeIn, maxAgeIn = age.split("-")
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
@@ -90,11 +97,16 @@ def ageRange(room, age):
 
 def maxOcc(room, numOfPeople):
     #used in form1 checks
+<<<<<<< HEAD
     for r in allRooms:
         if room == r.name:
             maxO = r.maxO
             break
     if (numOfPeople > maxO):
+=======
+    #room:Room object, numOfPeople:int
+    if (numOfPeople > room.maxO):
+>>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
         return False
     else:
         return True
@@ -113,6 +125,7 @@ def checkDayTimes(currentDate, date):
         return allTimes
         
 def getAvabileTimes(date, room, length ,bookings):
+    #date:datetime.date object, room:Room object, length:str, bookings:list[list[str]]
     #used in main.py
     #compares times from checkDayTimes and the bookings already made
     meetLength =int(length.split()[0])
@@ -162,7 +175,7 @@ def getAvabileTimes(date, room, length ,bookings):
     return avaTimes
 
 def addBooking(booking):
-    #date:datetime object, time:string
+    #date:datetime.date object, time:string
     d = open("bookings.csv", 'a')
     for i in range(int(booking[3][0])):
         d.write( "\n")
@@ -177,7 +190,7 @@ def addBooking(booking):
    
 def userBooked(name, phone, date, time, bookings) :
     #used in form3 checks
-    #date:datetime object, time:string
+    #date:datetime.date object, time:string, bookings:list[list[str]] , phone:string, name:string
     for booking in bookings:
         if name == booking[5] and phone == booking[6] and date.strftime("%Y-%m-%d") == booking[1] and time == booking[7]:
             return False
@@ -185,29 +198,25 @@ def userBooked(name, phone, date, time, bookings) :
    
 def checkWeekend(date):
     #used in form1 checks
-    #date:datetime object
+    #date:datetime.date object
     if date.weekday() > 4:
         print("Cannot book on the weekend")
         return False
     else:
         return True
 
-def checkTimeInAdvance(dateS, bookingTime):
+def checkTimeInAdvance(now,dateS, bookingTime):
     #used in form2 checks
-    #date:datetime object, time:string
-    #dateS = datetime.strptime(dateS,'%Y-%m-%d')
-    now = datetime.now()
-    minBookTime = (now + timedelta(hours=3))
+    #date:datetime.date object, bookingTime:string, now:datetime object
+    minBookTime = (now+ timedelta(hours=3))
     bookingTime = datetime.strptime(bookingTime,'%H:%M')
-    print(now.date(), dateS.date())
+    print(now.date(), type(dateS))
     print(minBookTime.time(), bookingTime.time())
-    if now.date() == dateS.date() and minBookTime.time() > bookingTime.time():
+    if now.date() == dateS and minBookTime.time() > bookingTime.time():
         print("Must book 3 hours in advance")
         return False
     else:
         return True
-    
-print(checkTimeInAdvance((datetime.now()),(datetime.now() + timedelta(hours = 4)).strftime("%H:%M")))
 
 def checkNulls(booking):
     for i in booking:
@@ -217,7 +226,7 @@ def checkNulls(booking):
     
 def checkHoliday(date):
     #used in form1 checks
-    #date:datetime object
+    #date:datetime.date object
     load_dotenv()
     date = datetime.datetime.strptime(date,'%Y-%m-%d')
     country = "IE"
@@ -234,10 +243,15 @@ def checkHoliday(date):
     
 def checkFullMoon(room,date):
     #used in form1 checks
+<<<<<<< HEAD
     #date:datetime object 
     #if room.name == "Moon":
 
     if room == "Moon":
+=======
+    #date:datetime.date object, room:Room object
+    if room.name == "Moon":
+>>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
         i = IsFullMoon()
         return i.set_date_string(date, '%Y-%m-%d').is_full_moon()
     else:
