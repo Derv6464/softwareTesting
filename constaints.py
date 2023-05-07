@@ -77,16 +77,12 @@ def getRoom(roomName):
 
 def ageRange(room, age):
     #used in form1 checks
-<<<<<<< HEAD
-
+    #room:Room object, age:str
     for r in allRooms:
-        if room == r.name:
+        if room.name == r.name:
             maxAge = r.maxAge
             minAge = r.minAge
             break
-=======
-    #room:Room object, age:str
->>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
     minAgeIn, maxAgeIn = age.split("-")
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
@@ -97,16 +93,12 @@ def ageRange(room, age):
 
 def maxOcc(room, numOfPeople):
     #used in form1 checks
-<<<<<<< HEAD
+    #room:Room object, numOfPeople:int
     for r in allRooms:
-        if room == r.name:
+        if room.name == r.name:
             maxO = r.maxO
             break
     if (numOfPeople > maxO):
-=======
-    #room:Room object, numOfPeople:int
-    if (numOfPeople > room.maxO):
->>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
         return False
     else:
         return True
@@ -136,7 +128,7 @@ def getAvabileTimes(date, room, length ,bookings):
     daysBookings = []
     for i in bookings:
         if i:
-            if i[1] == str(date) and i[0] == room.name:
+            if i[1] == date and i[0].name == room.name:
                 daysBookings.append(i)
     
     if not daysBookings:
@@ -179,7 +171,7 @@ def addBooking(booking):
     d = open("bookings.csv", 'a')
     for i in range(int(booking[3][0])):
         d.write( "\n")
-        lenght = (str((int(str(booking[3][0]))-i))+"hours")
+        lenght = (str((int(str(booking[3][0]))-i))+" hours")
         time = str((datetime.strptime(booking[7],'%H:%M') + timedelta(hours=i)).strftime('%H:%M'))
         d.write(str(booking[0].name) + "," + str(booking[1]) + "," + str(booking[2]) + "," + lenght + "," + 
                 str(booking[4]) + "," + str(booking[5]) + "," + str(booking[6])+","+ time)
@@ -192,7 +184,7 @@ def userBooked(name, phone, date, time, bookings) :
     #used in form3 checks
     #date:datetime.date object, time:string, bookings:list[list[str]] , phone:string, name:string
     for booking in bookings:
-        if name == booking[5] and phone == booking[6] and date.strftime("%Y-%m-%d") == booking[1] and time == booking[7]:
+        if name == booking[5] and phone == booking[6] and date == booking[1] and time == booking[7]:
             return False
     return True
    
@@ -228,7 +220,6 @@ def checkHoliday(date):
     #used in form1 checks
     #date:datetime.date object
     load_dotenv()
-    date = datetime.datetime.strptime(date,'%Y-%m-%d')
     country = "IE"
     day = date.day
     month = date.month
@@ -243,15 +234,10 @@ def checkHoliday(date):
     
 def checkFullMoon(room,date):
     #used in form1 checks
-<<<<<<< HEAD
-    #date:datetime object 
-    #if room.name == "Moon":
-
-    if room == "Moon":
-=======
     #date:datetime.date object, room:Room object
+ 
+    date = datetime.strftime(date, '%Y-%m-%d')
     if room.name == "Moon":
->>>>>>> 4e3bbc0 (added time test conditions for checkTimeInAdvance, added more comments)
         i = IsFullMoon()
         return i.set_date_string(date, '%Y-%m-%d').is_full_moon()
     else:

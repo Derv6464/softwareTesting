@@ -24,30 +24,30 @@ class TestStringMethods(unittest.TestCase):
         self.allRooms = c.allRooms
         self.allTimes = c.allTimes
         self.bookings = [
-            ["Meeting", date(2023,4,15), 11, "1 hour", 44, 'John', '0123456789', '13:00'],
-            ["Moon", date(2023,4,16), 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
-            ["Meeting", date(2023,4,17),22, "1 hour", 60, 'Bob', '0123456789', '15:00']
+            [self.TestRoom, date(2023,4,15), 11, "1 hours", 44, 'John', '0123456789', '13:00'],
+            [self.TestMoonRoom, date(2023,4,16), 7, "2 hours", 30, 'Jane', '9876543210', '14:00'],
+            [self.TestRoom, date(2023,4,17),22, "1 hours", 60, 'Bob', '0123456789', '15:00']
         ]
-        self.newBookingForm = ["Meeting", date(2023,4,17), 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
-        self.newBookingOne = ["Meeting", date(2023,4,16), 100, "1 hour", 40, 'Jane', '9876543210', '14:00']
-        self.newBookingTwo = ["Meeting", date(2023,4,17), 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
-        self.newBookingThree = ["Meeting", date(2023,6,17), 60, "1 hour", 40, 'Bob', '9876543210', '14:00']
-        self.newBookingNulls = ["", date(2023,4,17), 25, "1 hour", 40, 'Bob', '9876543210', '14:00']
-        self.newBookingMax = ["Food", date(2023,4,17), 60, "1 hour", 40, 'Sarah', '9876543210', '14:00']
+        self.newBookingForm = [self.TestRoom, date(2023,4,17), 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
+        self.newBookingOne = [self.TestRoom, date(2023,4,16), 100, "1 hours", 40, 'Jane', '9876543210', '14:00']
+        self.newBookingTwo = [self.TestRoom, date(2023,4,17), 60, "1 hours", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingThree = [self.TestRoom, date(2023,6,17), 60, "1 hours", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingNulls = ["", date(2023,4,17), 25, "1 hours", 40, 'Bob', '9876543210', '14:00']
+        self.newBookingMax = [self.TestFood, date(2023,4,17), 60, "1 hours", 40, 'Sarah', '9876543210', '14:00']
     
     #api testing
-    """def test_checkHoliday(self):
+    def test_checkHoliday(self):
         # check to ensure that the function returns false when the date is a holiday
         self.assertEqual(c.checkHoliday(self.Christmas), False)
         time.sleep(5)
         # check to ensure that the function returns true when the date isn't a holiday
-        self.assertEqual(c.checkHoliday(self.newBookingForm[1]), True)"""
+        self.assertEqual(c.checkHoliday(self.newBookingForm[1]), True)
 
     def test_userBooked(self):
         #check to ensure that the function returns False when the user already has a booking
-        self.assertEqual(c.userBooked(self.newBookingForm[5], self.newBookingForm[6], datetime.strptime(self.newBookingForm[1], "%Y-%m-%d"), self.newBookingOne[7], self.bookings),False)
+        self.assertEqual(c.userBooked(self.newBookingOne[5], self.newBookingOne[6], self.newBookingOne[1], self.newBookingOne[7], self.bookings),False)
         #check to ensure that the function returns true when the user doesnt already have a booking
-        self.assertEqual(c.userBooked(self.newBookingTwo[5], self.newBookingTwo[6], datetime.strptime(self.newBookingTwo[1], "%Y-%m-%d"), self.newBookingTwo[7], self.bookings),True)
+        self.assertEqual(c.userBooked(self.newBookingTwo[5], self.newBookingTwo[6], self.newBookingTwo[1], self.newBookingTwo[7], self.bookings),True)
  
 
     def test_checkWeekend(self):
@@ -90,13 +90,13 @@ class TestStringMethods(unittest.TestCase):
     def test_checkAgeRange(self):
         #check to ensure that the function returns true when the age isnt within the range
         rangeF = "0-300"
-        self.assertEqual(c.ageRange(self.TestRoom.name, rangeF), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeF), False)
         #check to ensure that the function returns false when the age is within the range
         rangeP = "10-30"
-        self.assertEqual(c.ageRange(self.TestRoom.name, rangeP), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeP), False)
         #check edge case
         rangeE = "0-100"
-        self.assertEqual(c.ageRange(self.TestRoom.name, rangeE), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeE), False)
     
     def test_getRoom(self):
         #check to ensure that the function returns the correct room
@@ -131,10 +131,15 @@ class TestStringMethods(unittest.TestCase):
                 last_row = row
                 break
         shutil.copy(backupFile, realFile)
-        test = self.newBookingOne
-        for i in range(len(test)):
-            test[i] = str(test[i])
-        self.assertEqual(self.newBookingOne,last_row)
+        #making types match the types in the room class
+        last_row[0] = c.getRoom(last_row[0])
+        last_row[1] = datetime.strptime(last_row[1], '%Y-%m-%d').date()
+        last_row[2] = int(last_row[2])
+        last_row[4] = int(last_row[4])
+        #seperate check for names as cant compare objects
+        self.assertEqual(self.newBookingOne[0].name,last_row[0].name)
+        #comparing rest of the values
+        self.assertEqual(self.newBookingOne[1:],last_row[1:])
 
 
     def test_form1(self):
@@ -153,9 +158,9 @@ class TestStringMethods(unittest.TestCase):
         #check for one hour with no booking
         self.assertEqual(c.getAvabileTimes(date(2023,4,1), self.TestRoom, "1 hour", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"])
         #check for two hours with no booking
-        self.assertEqual(c.getAvabileTimes(date(2023,4,17), self.TestRoom, "2 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"])
+        self.assertEqual(c.getAvabileTimes(date(2023,4,18), self.TestRoom, "2 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"])
         #check for three hours with no booking
-        self.assertEqual(c.getAvabileTimes(date(2023,4,17), self.TestRoom, "3 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"])
+        self.assertEqual(c.getAvabileTimes(date(2023,4,18), self.TestRoom, "3 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"])
 
     
 
