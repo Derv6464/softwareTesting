@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 class TestFrontend(unittest.TestCase):
     def setUp(self):
         options = Options()
-        options.headless = True
+        options.headless = False
         self.driver = webdriver.Chrome(options=options)
         self.driver.get("http://127.0.0.1:5000")
 
@@ -111,6 +111,36 @@ class TestFrontend(unittest.TestCase):
         self.driver.find_element(By.XPATH, "/html/body/main/form/div/button").click()
         time.sleep(2)
         self.assertEqual("Confirmation", self.driver.title)
+    
+    def test_weekend(self):
+        xpaths = [
+            ["/html/body/main/form/div/div[1]/div[1]/input", "selenium"],
+            ["/html/body/main/form/div/div[1]/div[2]/input", "000 000 0000"],
+            [
+                "/html/body/main/form/div/div[2]/div[1]/select",
+                "/html/body/main/form/div/div[2]/div[1]/select/option[1]",
+            ],
+            ["/html/body/main/form/div/div[2]/div[2]/input", "13/5"],
+            [
+                "/html/body/main/form/div/div[3]/div[1]/select",
+                "/html/body/main/form/div/div[3]/div[1]/select/option[3]",
+            ],
+            ["/html/body/main/form/div/div[3]/div[2]/input", "10"],
+            [
+                "/html/body/main/form/div/div[3]/div[3]/select",
+                "/html/body/main/form/div/div[3]/div[3]/select/option[1]",
+            ],
+        ]
+        for i in xpaths:
+            if "select" in i[0]:
+                self.driver.find_element(By.XPATH, i[0]).click()
+                time.sleep(0.1)
+                self.driver.find_element(By.XPATH, i[1]).click()
+            else:
+                self.driver.find_element(By.XPATH, i[0]).send_keys(i[1])
+        self.driver.find_element(By.XPATH, "/html/body/main/form/div/button").click()
+        error_msg = self.driver.find_element(By.XPATH, "/html/body/main/dialog/article")
+        self.assertEqual("You can't: book on weekends\nOk", error_msg.text)
 
     def tearDown(self):
         self.driver.close()
