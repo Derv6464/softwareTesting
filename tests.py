@@ -29,6 +29,7 @@ class TestStringMethods(unittest.TestCase):
             [self.TestRoom, date(2023,4,17),22, "1 hours", 60, 'Bob', '0123456789', '15:00']
         ]
         self.newBookingForm = [self.TestRoom, date(2023,4,17), 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
+        self.newBookingForm2 = [self.TestMoonRoom, date(2023,4,17), 100, "1 hours", "20-40", 'Jane', '9876543210', '14:00']
         self.newBookingOne = [self.TestRoom, date(2023,4,16), 100, "1 hours", 40, 'Jane', '9876543210', '14:00']
         self.newBookingTwo = [self.TestRoom, date(2023,4,17), 60, "1 hours", 40, 'Bob', '9876543210', '14:00']
         self.newBookingThree = [self.TestRoom, date(2023,6,17), 60, "1 hours", 40, 'Bob', '9876543210', '14:00']
@@ -146,6 +147,9 @@ class TestStringMethods(unittest.TestCase):
         time.sleep(5)
         self.assertEqual((c.form1Checks(self.newBookingForm))[0],True)
         #self.assertEqual((c.form1Checks(self.newBookingTwo))[0],False)
+    
+    def test_form2(self):
+        self.assertEqual((c.form2Checks(self.newBookingForm))[0],True) 
 
 
     def test_getAvailableTimes(self):
