@@ -25,12 +25,12 @@ def onSubmit():
     age = request.form['age']
     numOfPeople = request.form['numOfPpl']
     length = request.form['length']
-    #do booking checks 
     date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
     room = c.getRoom(room)
     tempBooking = [room, date, numOfPeople, length, age, name, phone]
     formChecks = c.form1Checks(tempBooking)
     if formChecks[0]:
+        #room:room object, date:datetime object, numOfPeople:int, length:int, age:int, name:str, phone:str
         c.booking = tempBooking
         tempBooking = []
         times =[]
