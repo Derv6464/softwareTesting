@@ -173,12 +173,13 @@ class TestStringMethods(unittest.TestCase):
     def test_checkTimeInAdvance(self):
         # Because of the value of this depending heavily on the current time, the tests must also use the current time
         # This is an edge case that should just fail
+        d = datetime(2022, 12, 28, 16, 55, 59)
         if datetime.now().hour < 22:
             self.assertEqual(
                 c.checkTimeInAdvance(
-                    datetime.now(),
-                    datetime.now().date(),
-                    (datetime.now() + timedelta(hours=2)).strftime("%H:%M"),
+                    d,
+                    d.date(),
+                    (d + timedelta(hours=2)).strftime("%H:%M"),
                 ),
                 False,
             )
@@ -186,16 +187,16 @@ class TestStringMethods(unittest.TestCase):
         if datetime.now().hour < 20:
             self.assertEqual(
                 c.checkTimeInAdvance(
-                    datetime.now(),
-                    datetime.now().date(),
-                    (datetime.now() + timedelta(hours=4)).strftime("%H:%M"),
+                    d,
+                    d.date(),
+                    (d + timedelta(hours=4)).strftime("%H:%M"),
                 ),
                 True,
             )
         # This is a different day and should pass easily
         self.assertEqual(
             c.checkTimeInAdvance(
-                datetime.now(), self.newBookingThree[1], self.newBookingThree[7]
+                d, self.newBookingThree[1], self.newBookingThree[7]
             ),
             True,
         )
