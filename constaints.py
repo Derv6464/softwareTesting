@@ -61,9 +61,9 @@ def form1Checks(booking):
     if not checkWeekend(booking[1]):
         errorMSG += "book on weekends, "
         passes = False
-    """if not checkHoliday(booking[1]):
+    if not checkHoliday(booking[1]):
         errorMSG += "book on holidays, "
-        passes = False"""
+        passes = False
     if not checkNulls(booking):
         errorMSG += "leave any fields blank, "
         passes = False
