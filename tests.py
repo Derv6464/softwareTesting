@@ -154,15 +154,13 @@ class TestStringMethods(unittest.TestCase):
         #check for two hours with a booking
         self.assertEqual(c.getAvabileTimes(date(2023,4,15), self.TestRoom, "2 hours", self.bookings), ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"])
         #check for three hours with a booking
-        self.assertEqual(c.getAvabileTimes(date(2023,4,15), self.TestRoom, "3 hours", self.bookings), ["09:00", "10:00"])
+        self.assertEqual(c.getAvabileTimes(date(2023,4,15), self.TestRoom, "3 hours", self.bookings), ["09:00", "10:00", "14:00", "15:00", "16:00"])
         #check for one hour with no booking
         self.assertEqual(c.getAvabileTimes(date(2023,4,1), self.TestRoom, "1 hour", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"])
         #check for two hours with no booking
         self.assertEqual(c.getAvabileTimes(date(2023,4,18), self.TestRoom, "2 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"])
         #check for three hours with no booking
         self.assertEqual(c.getAvabileTimes(date(2023,4,18), self.TestRoom, "3 hours", self.bookings), ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"])
-
-    
 
     #testing csv read/write
     

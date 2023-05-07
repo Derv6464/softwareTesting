@@ -164,6 +164,7 @@ def getAvabileTimes(date, room, length ,bookings):
                     addTime = False
             if addTime:
                 avaTimes.append(i)
+            addTime = True
     return avaTimes
 
 def addBooking(booking):
