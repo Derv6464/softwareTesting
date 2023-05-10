@@ -78,7 +78,7 @@ note: The is a broad overveiw as the amount of time and complexity differ for ea
 |roomDetails()|Amy McMahon|100%|
 |backHome()|Amy McMahon|100%|
 | | | |
-|Overall|Amy McMahon,Dervla Gargan|22%,78%|
+|Overall|Amy McMahon,Dervla Gargan|78%,22%|
 ### tests.py
 |Function Name|Contributions|Percentage|
 |---------|-------------|----------|
@@ -104,10 +104,10 @@ note: The is a broad overveiw as the amount of time and complexity differ for ea
 |---------|-------------|----------|
 |testWeb.py (selenium)|Dervla Gargan|100%|
 |Linting|Amy McMahon|100%|
-|Github Actions|Amy McMahon,Dervla Gargan||
-|.env/secrets key|Amy McMahon,Dervla Gargan||
+|Github Actions|Amy McMahon,Dervla Gargan|50%,50%|
+|.env/secrets key|Amy McMahon,Dervla Gargan|50%,50%|
 |coverage|Amy McMahon|100%|
-|mutation|Mark Langtry,Dervla Gargan||
+|mutation|Mark Langtry,Dervla Gargan|80%,20%|
 |Read Me|Amy McMahon,Dervla Gargan,Mark Langtry|10%,80%,10%|
 ||||
-|Overall|Amy McMahon,Dervla Gargan,Mark Langtry||
+|Overall|Amy McMahon,Dervla Gargan,Mark Langtry|44%,43%,13%|
