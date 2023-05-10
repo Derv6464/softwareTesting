@@ -50,52 +50,62 @@ Percentage is in the order of names in contributions
 |Function Name|Contributions|Percentage|
 |---------|-------------|----------|
 |getBookings()|Dervla Gargan|100%|
-|form1Checks()| | |
-|form2Checks()| | |
-|getRoom()| | |
-|ageRange()| | |
-|maxOcc()| | |
-|checkDayTimes()| | |
-|getAvabileTimes()| | |
-|addBooking()| | |
-|userBooked()| | |
-|checkWeekend()| | |
-|checkTimeInAdvance()| | |
-|checkNulls()| | |
-|checkHoliday()| | |
-|checkFullMoon()| | |
+|form1Checks()|Dervla Gargan,Amy McMahon|60%,40%|
+|form2Checks()|Dervla Gargan|100%|
+|getRoom()|Dervla Gargan,Mark Langtry|50%,50%|
+|ageRange()|Amy McMahon,Mark Langtry|80%,20%|
+|maxOcc()|Amy McMahon,Mark Langtry|90%,10%|
+|checkDayTimes()|Dervla Gargan|100%|
+|getAvabileTimes()|Dervla Gargan,Amy McMahon|80%,20%|
+|addBooking()|Dervla Gargan|100%|
+|userBooked()|Dervla Gargan|100%|
+|checkWeekend()|Mark Langtry|100%|
+|checkTimeInAdvance()|Dervla Gargan,Mark Langtry|60%,40%|
+|checkHoliday()|Mark Langtry|100%|
+|checkFullMoon()|Mark Langtry|100%|
 | | | |
-|Overall|||
+|Overall|Amy McMahon,Dervla Gargan,Mark Langtry|16%,53%,30%|
 
 
 ### main.py
 |Function Name|Contributions|Percentage|
 |---------|-------------|----------|
-|home()| | |
-|onSubmit()| | |
-|onTimeSubmit()| | |
-|roomDetails()| | |
-|backHome()| | |
+|home()|Amy McMahon|100%|
+|onSubmit()|Amy McMahon,Dervla Gargan|50%,50%|
+|onTimeSubmit()|Amy McMahon,Dervla Gargan|40%,60%|
+|roomDetails()|Amy McMahon|100%|
+|backHome()|Amy McMahon|100%|
+| | | |
+|Overall|Amy McMahon,Dervla Gargan|22%,78%|
 ### tests.py
 |Function Name|Contributions|Percentage|
 |---------|-------------|----------|
-|setUp()| | |
-|test_checkHoliday()| | |
-|test_userBooked()| | |
-|test_checkWeekend()| | |
-|test_checkNulls()| | |
-|test_checkTimeInAdvance()| | |
-|test_checkFullMoon()| | |
-|test_checkMaxOcc()| | |
-|test_checkAgeRange()| | |
-|test_getRoom()| | |
-|test_checkDayTime()| | |
-|test_addBooking()| | |
-|test_form1()| | |
-|test_form2()| | |
-|test_getAvailableTimes()| | |
+|setUp()|Amy McMahon,Mark Langtry|50%,50%|
+|test_checkHoliday()|Amy McMahon,Mark Langtry|50%,50%|
+|test_userBooked()|Amy McMahon|100%|
+|test_checkWeekend()|Amy McMahon,Mark Langtry|50%,50%|
+|test_checkTimeInAdvance()|Mark Langtry|100%|
+|test_checkFullMoon()|Mark Langtry,Amy McMahon|66%,34%|
+|test_checkMaxOcc()|Amy McMahon|100%|
+|test_checkAgeRange()|Amy McMahon,Mark Langtry|70%,30% |
+|test_getRoom()|Amy McMahon|100%|
+|test_checkDayTime()|Amy McMahon|100%|
+|test_addBooking()|Mark Langtry|100%|
+|test_form1()|Mark Langtry|100%|
+|test_form2()|Amy McMahon|100%|
+|test_getAvailableTimes()|Amy McMahon|100%|
 ||||
-|Overall|||
+|Overall|Amy McMahon,Mark Langtry|61%,39%|
 
-### testWeb.py
-Dervla Gargan, 100%
+### Extras
+|Name|Contributions|Percentage|
+|---------|-------------|----------|
+|testWeb.py (selenium)|Dervla Gargan|100%|
+|Linting|Amy McMahon|100%|
+|Github Actions|Amy McMahon,Dervla Gargan||
+|.env/secrets key|Amy McMahon,Dervla Gargan||
+|coverage|Amy McMahon|100%|
+|mutation|Mark Langtry,Dervla Gargan||
+|Read Me|Amy McMahon,Dervla Gargan,Mark Langtry|10%,80%,10%|
+||||
+|Overall|Amy McMahon,Dervla Gargan,Mark Langtry||
