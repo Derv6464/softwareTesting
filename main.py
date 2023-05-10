@@ -70,5 +70,15 @@ def onTimeSubmit():
         return render_template("selectTime.html", data=times)
 
 
+@app.route("/room_details", methods=["POST", "GET"])
+def roomDetails():
+    return render_template("details.html")
+
+
+@app.route("/", methods=["POST", "GET"])
+def backHome():
+    return render_template("home.html", data=c.allRooms, datetime=datetime)
+
+
 if __name__ == "__main__":
     app.run()
