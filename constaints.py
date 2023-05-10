@@ -44,7 +44,7 @@ allTimes = [
 allRooms = [
     Room("Meeting", 200, 65, 18),
     Room("Moon", 26, 65, 18),
-    Room("Food", 15, 100, 1),
+    Room("Food", 15, 117, 1),
     Room("Young Kids", 30, 12, 0),
     Room("Old Kids", 15, 18, 12),
     Room("Adults", 50, 65, 18),
