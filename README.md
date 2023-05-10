@@ -36,6 +36,8 @@ $ python testWeb.py
 ○ Percentage contribution by each group member
 with brief description
 Percentage is in the order of names in contributions
+
+note: The is a broad overveiw as the amount of time and complexity differ for each function, file or task.
 #### HTML
 |File Name|Contributions|Percentage|
 |---------|-------------|----------|
