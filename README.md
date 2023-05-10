@@ -18,6 +18,16 @@ $ python3 tests.py
 ```
 $ python3 testWeb.py
 ```
+###Windows
+```
+$ python main.py
+```
+```
+$ python tests.py
+```
+```
+$ python testWeb.py
+```
 
 ## :Project Outline
 ○ Brief outline of features/tests
