@@ -39,7 +39,7 @@ $ python3 testWeb.py
 $ python testWeb.py
 ```
 You can view the final reports of the coverage and mutation testing [here](#results) or 
-view the full results of the coverage report of mutation test through the files in coverage.html/ muatationOut.txt files in the repo or by 
+view the full results of the coverage report or the mutation tests through the files in the results folder in the repo.
 
 ## Project Outline
 Our project is a basic room booking system using a simiple HTML website. The goal of this project was to demonstrate our knowledge of testing.
@@ -74,6 +74,7 @@ tests.py           96      1    99%
 -----------------------------------
 TOTAL             361     16    96%
 ```
+
 
 ## Contribution
 Percentage is in the order of names in contributions
