@@ -211,10 +211,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(c.maxOcc(self.newBookingOne[0], 7), False)
 
     def test_checkAgeRange(self):
-        # check to ensure that the function returns true when the age isnt within the range
+        # check to ensure that the function returns false when the age isnt within the range
         rangeF = "0-300"
         self.assertEqual(c.ageRange(self.TestRoom, rangeF), False)
-        # check to ensure that the function returns false when the age is within the range
+        # check to ensure that the function returns true when the age is within the range
         rangeP = "10-30"
         self.assertEqual(c.ageRange(self.TestRoom, rangeP), True)
         # check edge case
