@@ -87,7 +87,7 @@ def form2Checks(booking):
     if not checkTimeInAdvance(datetime.now(), booking[1], booking[7]):
         errorMSG += "You can't book less than 3 hours in advance, "
         passes = False
-    return [passes, errorMSG[:2]]
+    return [passes, errorMSG[:-2]]
 
 
 def getRoom(roomName):
@@ -114,10 +114,6 @@ def ageRange(room, age):
 def maxOcc(room, numOfPeople):
     # used in form1 checks
     # room:Room object, numOfPeople:int
-
-    print("room", room.name)
-    print("room",room.maxO)
-    print("ppl",numOfPeople)
     if numOfPeople > room.maxO:
         return False
     else:
