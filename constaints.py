@@ -64,9 +64,6 @@ def form1Checks(booking):
     if not checkHoliday(booking[1]):
         errorMSG += "book on holidays, "
         passes = False
-    if not checkNulls(booking):
-        errorMSG += "leave any fields blank, "
-        passes = False
     if not ageRange(booking[0], booking[4]):
         errorMSG += "book with this age range, "
         passes = False
@@ -105,15 +102,10 @@ def getRoom(roomName):
 def ageRange(room, age):
     # used in form1 checks
     # room:Room object, age:str
-    for r in allRooms:
-        if room.name == r.name:
-            maxAge = r.maxAge
-            minAge = r.minAge
-            break
     minAgeIn, maxAgeIn = age.split("-")
     minAgeIn = int(minAgeIn)
     maxAgeIn = int(maxAgeIn)
-    if minAgeIn >= minAge and maxAgeIn <= maxAge:
+    if minAgeIn >= room.minAge and maxAgeIn <= room.maxAge:
         return True
     else:
         return False
@@ -122,11 +114,11 @@ def ageRange(room, age):
 def maxOcc(room, numOfPeople):
     # used in form1 checks
     # room:Room object, numOfPeople:int
-    for r in allRooms:
-        if room.name == r.name:
-            maxO = r.maxO
-            break
-    if numOfPeople > maxO:
+
+    print("room", room.name)
+    print("room",room.maxO)
+    print("ppl",numOfPeople)
+    if numOfPeople > room.maxO:
         return False
     else:
         return True
@@ -282,13 +274,6 @@ def checkTimeInAdvance(now, dateS, bookingTime):
         return False
     else:
         return True
-
-
-def checkNulls(booking):
-    for i in booking:
-        if i == "":
-            return False
-    return True
 
 
 def checkHoliday(date):
