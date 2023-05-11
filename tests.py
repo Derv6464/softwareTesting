@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 import constaints as c
+import mutpy
 
 
 class TestStringMethods(unittest.TestCase):
@@ -195,9 +196,7 @@ class TestStringMethods(unittest.TestCase):
             )
         # This is a different day and should pass easily
         self.assertEqual(
-            c.checkTimeInAdvance(
-                d, self.newBookingThree[1], self.newBookingThree[7]
-            ),
+            c.checkTimeInAdvance(d, self.newBookingThree[1], self.newBookingThree[7]),
             True,
         )
 
