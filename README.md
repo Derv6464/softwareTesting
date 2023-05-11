@@ -64,6 +64,17 @@ We used GitHub actions to automate our tests. We also used at .env to store our 
 ## Results
 coverage and mutation here 
 
+#### Coverage
+```
+Name            Stmts   Miss  Cover
+-----------------------------------
+constaints.py     162     14    91%
+testWeb.py        103      1    99%
+tests.py           96      1    99%
+-----------------------------------
+TOTAL             361     16    96%
+```
+
 ## Contribution
 Percentage is in the order of names in contributions
 
