@@ -62,8 +62,6 @@ We used GitHub actions to automate our tests. We also used at .env to store our 
 
 
 ## Results
-coverage and mutation here 
-
 #### Coverage
 ```
 Name            Stmts   Miss  Cover
@@ -74,7 +72,16 @@ tests.py           96      1    99%
 -----------------------------------
 TOTAL             361     16    96%
 ```
-
+#### Mutation Testing
+```
+[0.00000 s] incompetent
+[*] Mutation score [1403.45984 s]: 0.0%
+   - all: 128
+   - killed: 0 (0.0%)
+   - survived: 120 (93.8%)
+   - incompetent: 8 (6.2%)
+   - timeout: 0 (0.0%)
+```
 
 ## Contribution
 Percentage is in the order of names in contributions
