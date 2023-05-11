@@ -1,40 +1,59 @@
 # softwareTesting
-This is our software testing by Amy McMahon, Dervla Gargan, Mark Langtry
+This is our software testing by Amy McMahon, Dervla Gargan, Mark Langtry.
 
 ## :ledger: Index
 - [How to Run](#how-to-run)
 - [Project Outline](#project-outline)
+- [Results](#results)
 - [Contribution](#contribution)
 
+
 ## How to Run
-How to run your project and its automated tests
-### Mac
+Start with git cloning the repo
+
+To run our website use:
+#### Mac
 ```
 $ python3 main.py
 ```
-```
-$ python3 tests.py
-```
-```
-$ python3 testWeb.py
-```
-### Windows
+#### Windows
 ```
 $ python main.py
 ```
+To see the results of our unit tests run this command, this can also been seen through the github actions tab.
+### Mac
+```
+$ python3 tests.py
+```
+#### Windows
 ```
 $ python tests.py
 ```
+To see the results of our front-end selenuim tests, run this command
+#### Mac
+```
+$ python3 testWeb.py
+```
+#### Windows
 ```
 $ python testWeb.py
 ```
+You can view the final reports of the coverage and mutation testing [here](#results) or 
+view the full results of the coverage report of mutation test through the files in coverage.html/ muatationOut.txt files in the repo or by 
 
 ## Project Outline
-○ Brief outline of features/tests
+Our project is a basic room booking system using a simiple HTML website.
+#### Tools used
+For our front-end we used the [Pico.css Framework](https://picocss.com/). This kept our front-end simple so we could focus on the main tasks for the project.
+For our data stoarge we used a CSV, this contiued to keep things simple.
+For our back-end we used Flask as we had all previously used it and were framilar with python.
+We used the unittest library for our tests.
+We also used Selenium for testing the front-end of our website.
+
+## Results
+coverage and mutation here 
 
 ## Contribution
-○ Percentage contribution by each group member
-with brief description
 Percentage is in the order of names in contributions
 
 note: The is a broad overveiw as the amount of time and complexity differ for each function, file or task.
