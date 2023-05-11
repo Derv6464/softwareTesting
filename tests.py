@@ -190,9 +190,7 @@ class TestStringMethods(unittest.TestCase):
             )
         # This is a different day and should pass easily
         self.assertEqual(
-            c.checkTimeInAdvance(
-                d, self.newBookingThree[1], self.newBookingThree[7]
-            ),
+            c.checkTimeInAdvance(d, self.newBookingThree[1], self.newBookingThree[7]),
             True,
         )
 
