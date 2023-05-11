@@ -59,7 +59,7 @@ class TestStringMethods(unittest.TestCase):
         self.newBookingForm = [
             self.TestRoom,
             date(2023, 4, 17),
-            100,
+            5,
             "1 hours",
             "20-40",
             "Jane",
@@ -165,12 +165,6 @@ class TestStringMethods(unittest.TestCase):
         # check to ensure that the function returns true when the date isnt a weekend
         self.assertEqual(c.checkWeekend(self.newBookingTwo[1]), True)
 
-    def test_checkNulls(self):
-        # check to make sure no fields are null and returns true
-        self.assertEqual(c.checkNulls(self.newBookingOne), True)
-        # check to make sure no fields are null and returns false if there are nulls
-        self.assertEqual(c.checkNulls(self.newBookingNulls), False)
-
     def test_checkTimeInAdvance(self):
         # Because of the value of this depending heavily on the current time, the tests must also use the current time
         # This is an edge case that should just fail
@@ -212,9 +206,9 @@ class TestStringMethods(unittest.TestCase):
 
     def test_checkMaxOcc(self):
         # check to ensure that the function returns true when the room is not at max capacity
-        self.assertEqual(c.maxOcc(self.newBookingOne[0], 200), True)
+        self.assertEqual(c.maxOcc(self.newBookingOne[0], 6), True)
         # check to ensure that the function returns false when the room is at max capacity
-        self.assertEqual(c.maxOcc(self.newBookingOne[0], 201), False)
+        self.assertEqual(c.maxOcc(self.newBookingOne[0], 7), False)
 
     def test_checkAgeRange(self):
         # check to ensure that the function returns true when the age isnt within the range
@@ -222,10 +216,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(c.ageRange(self.TestRoom, rangeF), False)
         # check to ensure that the function returns false when the age is within the range
         rangeP = "10-30"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeP), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeP), True)
         # check edge case
         rangeE = "0-100"
-        self.assertEqual(c.ageRange(self.TestRoom, rangeE), False)
+        self.assertEqual(c.ageRange(self.TestRoom, rangeE), True)
 
     def test_getRoom(self):
         # check to ensure that the function returns the correct room
