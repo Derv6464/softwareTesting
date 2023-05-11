@@ -43,7 +43,7 @@ allTimes = [
 ]
 allRooms = [
     Room("Meeting", 200, 65, 18),
-    Room("Moon", 26, 65, 18),
+Room("Moon", 26, 65, 18),
     Room("Food", 15, 100, 1),
     Room("Young Kids", 30, 12, 0),
     Room("Old Kids", 15, 18, 12),
@@ -268,7 +268,6 @@ def checkWeekend(date):
     # used in form1 checks
     # date:datetime.date object
     if date.weekday() > 4:
-        print("Cannot book on the weekend")
         return False
     else:
         return True
@@ -279,10 +278,7 @@ def checkTimeInAdvance(now, dateS, bookingTime):
     # date:datetime.date object, bookingTime:string, now:datetime object
     minBookTime = now + timedelta(hours=3)
     bookingTime = datetime.strptime(bookingTime, "%H:%M")
-    print(now.date(), type(dateS))
-    print(minBookTime.time(), bookingTime.time())
     if now.date() == dateS and minBookTime.time() > bookingTime.time():
-        print("Must book 3 hours in advance")
         return False
     else:
         return True
@@ -313,7 +309,7 @@ def checkHoliday(date):
             "day": day,
         },
     )
-    print(response.text)
+#    print(response.text)
     if response.text == "[]":
         return True
     else:
