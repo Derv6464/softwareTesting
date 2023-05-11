@@ -1,7 +1,7 @@
 # softwareTesting
 This is our software testing by Amy McMahon, Dervla Gargan, Mark Langtry.
 
-## :ledger: Index
+## Index
 - [How to Run](#how-to-run)
 - [Project Outline](#project-outline)
 - [Results](#results)
@@ -42,7 +42,7 @@ You can view the final reports of the coverage and mutation testing [here](#resu
 view the full results of the coverage report of mutation test through the files in coverage.html/ muatationOut.txt files in the repo or by 
 
 ## Project Outline
-Our project is a basic room booking system using a simiple HTML website.
+Our project is a basic room booking system using a simiple HTML website. The goal of this project was to demonstrate our knowledge of testing.
 #### Tools used
 For our front-end we used the [Pico.css Framework](https://picocss.com/). This kept our front-end simple so we could focus on the main tasks for the project.
 For our data stoarge we used a CSV, this contiued to keep things simple.
@@ -50,13 +50,24 @@ For our back-end we used Flask as we had all previously used it and were framila
 We used the unittest library for our tests.
 We also used Selenium for testing the front-end of our website.
 
+#### Our Website
+We used a basic form to book rooms, the user fills out details on what they wanted to book. They are then provided with a list of available times which they can choose from. Once the booking has been made they are shown a confirmation screen.
+Different rooms have different conditions to be met so they are able to be booked. 
+
+#### Our Tests
+We have two test files. One tests.py has all our unit tests. The second ist testWeb.py, which uses selenium to test the front end of our website.
+
+#### Our Extras
+We used GitHub actions to automate our tests. We also used at .env to store our API keys. This was also autmomated through GitHub Actions. We used a linter to format our code. We also did mutation testing and used a coverage report.
+
+
 ## Results
 coverage and mutation here 
 
 ## Contribution
 Percentage is in the order of names in contributions
 
-note: The is a broad overveiw as the amount of time and complexity differ for each function, file or task.
+Note: The is a broad overveiw as the amount of time and complexity differ for each function, file or task.
 #### HTML
 |File Name|Contributions|Percentage|
 |---------|-------------|----------|
