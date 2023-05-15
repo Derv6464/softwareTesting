@@ -42,7 +42,7 @@ $ python3 testWeb.py
 $ python testWeb.py
 ```
 You can view the final reports of the coverage and mutation testing [here](#results) or 
-view the full results of the coverage report or the mutation tests through the files in the results folder in the repo. To view the overall coverage report, view the index.html file.
+view the full results of the coverage report or the mutation tests through the files in the results folder in the repo. To view the overall coverage report, view the index.html file in the results folder.
 
 ## Project Outline
 Our project is a basic room booking system using a simiple HTML website. The goal of this project was to demonstrate our knowledge of testing.
