@@ -29,7 +29,7 @@ class TestFrontend(unittest.TestCase):
                 "/html/body/main/form[2]/div/div[2]/div[1]/select",
                 "/html/body/main/form[2]/div/div[2]/div[1]/select/option[1]",
             ],
-            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "18/5"],
+            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "14/6"],
             [
                 "/html/body/main/form[2]/div/div[3]/div[1]/select",
                 "/html/body/main/form[2]/div/div[3]/div[1]/select/option[3]",
@@ -58,7 +58,7 @@ class TestFrontend(unittest.TestCase):
                 "/html/body/main/form[2]/div/div[2]/div[1]/select",
                 "/html/body/main/form[2]/div/div[2]/div[1]/select/option[1]",
             ],
-            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "18/5"],
+            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "14/6"],
             [
                 "/html/body/main/form[2]/div/div[3]/div[1]/select",
                 "/html/body/main/form[2]/div/div[3]/div[1]/select/option[3]",
@@ -86,7 +86,7 @@ class TestFrontend(unittest.TestCase):
                 "/html/body/main/form[2]/div/div[2]/div[1]/select",
                 "/html/body/main/form[2]/div/div[2]/div[1]/select/option[1]",
             ],
-            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "18/5"],
+            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "14/6"],
             [
                 "/html/body/main/form[2]/div/div[3]/div[1]/select",
                 "/html/body/main/form[2]/div/div[3]/div[1]/select/option[3]",
@@ -118,7 +118,7 @@ class TestFrontend(unittest.TestCase):
                 "/html/body/main/form[2]/div/div[2]/div[1]/select",
                 "/html/body/main/form[2]/div/div[2]/div[1]/select/option[1]",
             ],
-            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "13/5"],
+            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "11/6"],
             [
                 "/html/body/main/form[2]/div/div[3]/div[1]/select",
                 "/html/body/main/form[2]/div/div[3]/div[1]/select/option[3]",
@@ -148,7 +148,7 @@ class TestFrontend(unittest.TestCase):
                 "/html/body/main/form[2]/div/div[2]/div[1]/select",
                 "/html/body/main/form[2]/div/div[2]/div[1]/select/option[1]",
             ],
-            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "12/5"],
+            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "14/6"],
             [
                 "/html/body/main/form[2]/div/div[3]/div[1]/select",
                 "/html/body/main/form[2]/div/div[3]/div[1]/select/option[1]",
@@ -178,7 +178,7 @@ class TestFrontend(unittest.TestCase):
                 "/html/body/main/form[2]/div/div[2]/div[1]/select",
                 "/html/body/main/form[2]/div/div[2]/div[1]/select/option[2]",
             ],
-            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "12/5"],
+            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "14/6"],
             [
                 "/html/body/main/form[2]/div/div[3]/div[1]/select",
                 "/html/body/main/form[2]/div/div[3]/div[1]/select/option[3]",
@@ -209,7 +209,7 @@ class TestFrontend(unittest.TestCase):
                 "/html/body/main/form[2]/div/div[2]/div[1]/select",
                 "/html/body/main/form[2]/div/div[2]/div[1]/select/option[1]",
             ],
-            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "12/5"],
+            ["/html/body/main/form[2]/div/div[2]/div[2]/input", "14/6"],
             [
                 "/html/body/main/form[2]/div/div[3]/div[1]/select",
                 "/html/body/main/form[2]/div/div[3]/div[1]/select/option[3]",
