@@ -11,8 +11,9 @@ This is our software testing by Amy McMahon, Dervla Gargan, Mark Langtry.
 ## How to Run
 Start with git cloning the repo
 
+###Website
 To run our website use:
-#### Mac
+##### Mac
 ```
 $ python3 main.py
 ```
@@ -20,21 +21,23 @@ $ python3 main.py
 ```
 $ python main.py
 ```
+### Main Tests
 To see the results of our unit tests run this command, this can also been seen through the github actions tab.
-### Mac
+##### Mac
 ```
 $ python3 tests.py
 ```
-#### Windows
+###### Windows
 ```
 $ python tests.py
 ```
+### Selenium Tests
 To see the results of our front-end selenuim tests, run this command
-#### Mac
+##### Mac
 ```
 $ python3 testWeb.py
 ```
-#### Windows
+##### Windows
 ```
 $ python testWeb.py
 ```
