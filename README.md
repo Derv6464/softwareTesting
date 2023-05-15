@@ -9,7 +9,7 @@ This is our software testing by Amy McMahon, Dervla Gargan, Mark Langtry.
 
 
 ## How to Run
-Start with git cloning the repo
+Start with git cloning the repo or downloading the project
 
 ### Website
 To run our website use:
@@ -87,7 +87,7 @@ TOTAL             361     16    96%
 ```
 
 ## Contribution
-Percentage is in the order of names in contributions
+Percentage is in the order of names in contributions coloumn.
 
 Note: The is a broad overveiw as the amount of time and complexity differ for each function, file or task.
 #### HTML
