@@ -11,7 +11,7 @@ This is our software testing by Amy McMahon, Dervla Gargan, Mark Langtry.
 ## How to Run
 Start with git cloning the repo
 
-###Website
+### Website
 To run our website use:
 ##### Mac
 ```
